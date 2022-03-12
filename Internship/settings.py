@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-6wm4r!_*8_))y2%l%x^4l4+5_c$yb5+m*z_-)^i_0&jc0g^e)$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'thread',
     'transmit',
     'form',
+    'markdownx',
 
 ]
 
@@ -127,7 +128,6 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

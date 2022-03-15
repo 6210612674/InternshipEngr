@@ -1,0 +1,10 @@
+{% extends "account/layout.html" %} 
+{% block body %}
+
+<h1>Welcom to Account Index</h1>
+
+{% if request.user.is_authenticated %}
+    {{request.user.username}}  
+{%endif%}
+
+{% endblock %}

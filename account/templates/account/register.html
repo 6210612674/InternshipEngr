@@ -1,0 +1,143 @@
+{% extends "account/layout.html" %} 
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<title>Sign up</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+{% block body %}
+        <!-- Register Form -->
+<section>
+    <form method="POST" action="{% url 'account:register' %}" name="form_insert">
+        {% csrf_token %}
+                            <!-- username-->
+                                <label>
+                                    <h6>Username</h6>
+                                </label> 
+                                <input type="text" name="username" placeholder="Enter username" required/>
+                                {% if fail_username %}
+                                <label style="color: tomato; margin-top: -1em;">
+                                    <b>{{fail_username}}</b><br>
+                                </label>  
+                                {% endif %} 
+
+                            <!-- password-->
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Password</h6>
+                                </label> 
+                                <input class="mb-4" type="password" name="password" placeholder="Enter password" required/>
+                                {% if fail_password %}
+                                <label class="mb-1" style="color: tomato; margin-top: -1em;">
+                                    <b>{{fail_password}}</b><br> 
+                                </label> 
+                                {% endif %}
+                            <div style="font-size: 0.8em;">
+                                <li>Password must have at least 8 characters</li>
+                                <li>Password must have at least 1 of a-z</li>
+                                <li>Password must have at least 1 of A-Z</li>
+                                <li>Password must have at least 1 of 0-9</li>
+                            </div> 
+                            <br>
+                            <!-- re password-->
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Confirm Password</h6>
+                                </label>
+                                <input type="password" name="re_password" placeholder="Confirm password" required/>
+                                {% if fail_re_password %}
+                                <label class="mb-1" style="color: tomato; margin-top: 0em;">
+                                    <b>{{fail_re_password}}</b><br>
+                                </label>  
+                                {% endif %}
+                            </div>
+                            <br>
+
+                            <!-- first name-->
+                            <div class="row px-3 d-inline-block">
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">First Name</h6>
+                                </label>  
+                                <input type="text" name="first_name" placeholder="Enter your first name" required/>
+                            </div>
+                            <br>
+
+                            <!-- last name-->
+                            <div class="row px-3 d-inline-block">
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Last Name</h6>
+                                </label> 
+                                <input type="text" name="last_name" placeholder="Enter your last name" required/>
+                            </div>
+                            <br>
+
+                            <!-- email-->
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                <h6 class="mb-0 text-sm">Email Address</h6>
+                                </label> 
+                                <input class="mb-4" type="email" name="email" placeholder="Enter a valid email address" required/>
+                                {% if fail_email %}
+                                <label class="mb-1" style="color: tomato; margin-top: -1em;">
+                                    <b>{{fail_email}}</b><br>
+                                </label>  
+                                {% endif %} 
+                            </div>
+
+                            <!-- tel-->
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                <h6 class="mb-0 text-sm">Tel</h6>
+                                </label> 
+                                <input class="mb-4" type="text" name="tel" placeholder="Enter a telephone number" maxlength="10" required />
+                            </div>
+
+                           <!-- type-->
+                           <div class="row px-3"> 
+                                <label class="mb-1">
+                                <h6 class="mb-0 text-sm">Type</h6>
+                                </label> 
+                                <input class="mb-4" type="text" name="type" placeholder="Enter a type" maxlength="10" required />
+                            </div>
+
+                            <!-- address-->
+                           <div class="row px-3"> 
+                                <label class="mb-1">
+                                <h6 class="mb-0 text-sm">Address</h6>
+                                </label> 
+                                <textarea name="address" >Enter address here...</textarea>
+                            </div>
+
+                            <!-- year-->
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                <h6 class="mb-0 text-sm">Year</h6>
+                                </label> 
+                                <input class="mb-4" type="text" name="year" placeholder="Enter a year" maxlength="2" required />
+                            </div>
+
+                            <!-- major-->
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                <h6 class="mb-0 text-sm">Major</h6>
+                                </label> 
+                                <textarea name="major" >Enter major here...</textarea>
+                            </div>
+
+                            <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Confirm</button> </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+
+</html>
+{% endblock %}

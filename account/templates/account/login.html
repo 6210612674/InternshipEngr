@@ -1,0 +1,15 @@
+{% extends "account/layout.html" %} 
+
+{% block body %}
+<form class="d-flex justify-content-end" action="{% url 'account:login' %}" method="post" id=login>
+    {% csrf_token %}
+    <input class="form-control me-2" type="text" placeholder="Username" name="username" aria-label="Login"
+        required>
+    <input class="form-control me-2" type="password" placeholder="Password" name="password"
+        aria-label="Login" required>
+    <button class="btn button1" type="submit">Login</button>
+    &ensp;
+    <a href="{% url 'account:register' %}"><button type="button" class="btn button2"
+            style="width: 5.8em; height: 2.5em;">Sign up</button></a>
+</form>
+{% endblock %}

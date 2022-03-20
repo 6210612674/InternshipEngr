@@ -1,6 +1,99 @@
 {% extends "account/layout.html" %} 
 {% block body %}
+<title>หน้าแรก</title>
+<style>
+    .button1{
+        width: 110px;
+        height: 40px;
+        background-color: #D2543A;
+        color: white;
+        border-radius: 25px;
+        margin-left: 10px;
+    }
+    .p3{
+        color: white;
+        font-size: 19px;
+        font-family: "Athiti", sans-serif;
+    }
+    .p3:hover{
+        color: #2d4263;
+    }
+</style>
 
+<div class="div1">
+    <div class="comtainer">
+        <div class="row">
+            <!-- sildeshow -->
+            <div class="col-sm-7">
+                <div class="w3-display-container" style="margin-left: 20%;">
+                    <img class="mySlides img1" src="/static/images/img1.jpg" >
+                    <img class="mySlides img1" src="/static/images/img2.jpg" >
+                    <img class="mySlides img1" src="/static/images/img3.jpg" >
+                    
+                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
+                </div> 
+            </div>
+            <!-- login -->
+            <div class="col-sm-5">
+                <div class="div2">
+                    <form action="{% url 'account:login' %}" method="post" id=login>
+                        {% csrf_token %}
+                        <input class="form-control" type="text" placeholder="Username" name="username" aria-label="Login"required>
+                        <br>
+                        <input class="form-control" type="password" placeholder="Password" name="password"aria-label="Login" required>
+                        <br>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2 ">
+                                <button class="btn button1" type="submit">Login</button>
+                            </div>
+                            <div class="p-2 ">
+                                <a href="{% url 'account:register' %}">
+                                    <u class="p3">ลงทะเบียน</u>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- slideshow -->
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+    
+    function plusDivs(n) {
+      showDivs(slideIndex += n);
+    }
+    
+    function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+      }
+      x[slideIndex-1].style.display = "block";  
+    }
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+        x[myIndex-1].style.display = "block";  
+        setTimeout(carousel, 10000); 
+    }
+</script>
 <h1>Welcom to Account Index</h1>
 
 {% if request.user.is_authenticated %}

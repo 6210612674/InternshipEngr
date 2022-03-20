@@ -2,63 +2,158 @@
 {% block body %}
 <title>หน้าแรก</title>
 <style>
-    .button1{
+    .button1 {
         width: 110px;
         height: 40px;
-        background-color: #D2543A;
+        background-color: #d2543a;
         color: white;
         border-radius: 25px;
         margin-left: 10px;
     }
-    .p3{
-        color: white;
-        font-size: 19px;
+    h1,h2,h3{
         font-family: "Athiti", sans-serif;
     }
-    .p3:hover{
-        color: #2d4263;
-    }
+
 </style>
 
-<div class="div1">
-    <div class="comtainer">
-        <div class="row">
-            <!-- sildeshow -->
-            <div class="col-sm-7">
-                <div class="w3-display-container" style="margin-left: 20%;">
-                    <img class="mySlides img1" src="/static/images/img1.jpg" >
-                    <img class="mySlides img1" src="/static/images/img2.jpg" >
-                    <img class="mySlides img1" src="/static/images/img3.jpg" >
-                    
-                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                    <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
-                </div> 
-            </div>
-            <!-- login -->
-            <div class="col-sm-5">
-                <div class="div2">
-                    <form action="{% url 'account:login' %}" method="post" id=login>
-                        {% csrf_token %}
-                        <input class="form-control" type="text" placeholder="Username" name="username" aria-label="Login"required>
-                        <br>
-                        <input class="form-control" type="password" placeholder="Password" name="password"aria-label="Login" required>
-                        <br>
-                        <div class="d-flex flex-row-reverse">
-                            <div class="p-2 ">
-                                <button class="btn button1" type="submit">Login</button>
-                            </div>
-                            <div class="p-2 ">
-                                <a href="{% url 'account:register' %}">
-                                    <u class="p3">ลงทะเบียน</u>
-                                </a>
-                            </div>
+{% if not request.user.is_authenticated %}
+    <div class="div1">
+        <div class="comtainer">
+            <div class="row">
+                <!-- sildeshow -->
+                <div class="col-sm-7">
+                    <div class="w3-display-container" style="margin-left: 20%;">
+                        <img class="mySlides img1" src="/static/images/img1.jpg" >
+                        <img class="mySlides img1" src="/static/images/img4.jpg" >
+                        <img class="mySlides img1" src="/static/images/img5.jpg" >
+                        
+                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                        <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
+                    </div> 
+                </div>
+                <!-- login -->
+                <div class="col-sm-5">
+                    <div class="div2">
+                        <div class="div4">
+                            <form action="{% url 'account:login' %}" method="post" id=login>
+                                {% csrf_token %}
+                                <input class="form-control" style="width: 400px; height: 50px; margin-top: 50px; margin-left: 100px;" type="text" placeholder="Username" name="username" aria-label="Login"required>
+                                <br>
+                                <input class="form-control" style="width: 400px; height: 50px; margin-top: 25px; margin-left: 100px;" type="password" placeholder="Password" name="password"aria-label="Login" required>
+                                <br>
+                                <div class="d-flex flex-row-reverse">
+                                    <div class="p-2 ">
+                                        <button class="btn button1" style="margin-right: 60px; margin-top: 10px;" type="submit">Login</button>
+                                    </div>
+                                    <div class="p-2 " style="margin-top: 15px;">
+                                        <a href="{% url 'account:register' %}">
+                                            <u class="p3">ลงทะเบียน</u>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวสาร</u></h1>
+        <div class="grid-container">
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+          </div>
+          
+        <div class="line2"></div>
+
+        <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวประชาสัมพันธ์</u></h1>
+        <div class="grid-container">
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+        </div>
     </div>
-</div>
+{% else %}
+    <div class="div3">
+        <!-- sildeshow -->
+        <div class="col-sm-7">
+            <div class="w3-display-container" style="margin-left: 20%;">
+                <img class="mySlides img2" src="/static/images/img1.jpg" >
+                <img class="mySlides img2" src="/static/images/img4.jpg" >
+                <img class="mySlides img2" src="/static/images/img5.jpg" >
+                    
+                <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
+            </div> 
+        </div>
+    </div>
+    <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวสาร</u></h1>
+        <div class="grid-container">
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+          </div>
+
+    <div class="line2"></div>
+
+    <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวประชาสัมพันธ์</u></h1>
+        <div class="grid-container">
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+        </div>
+        
+
+{% endif %}
+
 
 <!-- slideshow -->
 <script>
@@ -94,10 +189,5 @@
         setTimeout(carousel, 10000); 
     }
 </script>
-<h1>Welcom to Account Index</h1>
-
-{% if request.user.is_authenticated %}
-    {{request.user.username}}  
-{%endif%}
 
 {% endblock %}

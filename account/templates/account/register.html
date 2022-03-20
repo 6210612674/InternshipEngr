@@ -1,143 +1,192 @@
-{% extends "account/layout.html" %} 
-{% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
-<title>Sign up</title>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'account/css/register.css' %}" >
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-{% block body %}
-        <!-- Register Form -->
-<section>
-    <form method="POST" action="{% url 'account:register' %}" name="form_insert">
-        {% csrf_token %}
-                            <!-- username-->
-                                <label>
-                                    <h6>Username</h6>
-                                </label> 
-                                <input type="text" name="username" placeholder="Enter username" required/>
-                                {% if fail_username %}
-                                <label style="color: tomato; margin-top: -1em;">
-                                    <b>{{fail_username}}</b><br>
-                                </label>  
-                                {% endif %} 
+      <style>
+      
+            body {
+              background-image: url('static/images/bg2.jpg');
+              
+            }
+      
+        </style>
+  </head>
+<body>
 
-                            <!-- password-->
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Password</h6>
-                                </label> 
-                                <input class="mb-4" type="password" name="password" placeholder="Enter password" required/>
-                                {% if fail_password %}
-                                <label class="mb-1" style="color: tomato; margin-top: -1em;">
-                                    <b>{{fail_password}}</b><br> 
-                                </label> 
-                                {% endif %}
-                            <div style="font-size: 0.8em;">
-                                <li>Password must have at least 8 characters</li>
-                                <li>Password must have at least 1 of a-z</li>
-                                <li>Password must have at least 1 of A-Z</li>
-                                <li>Password must have at least 1 of 0-9</li>
-                            </div> 
-                            <br>
-                            <!-- re password-->
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Confirm Password</h6>
-                                </label>
-                                <input type="password" name="re_password" placeholder="Confirm password" required/>
-                                {% if fail_re_password %}
-                                <label class="mb-1" style="color: tomato; margin-top: 0em;">
-                                    <b>{{fail_re_password}}</b><br>
-                                </label>  
-                                {% endif %}
-                            </div>
-                            <br>
+<!--https://jsfiddle.net/7d85n6bc/-->
 
-                            <!-- first name-->
-                            <div class="row px-3 d-inline-block">
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">First Name</h6>
-                                </label>  
-                                <input type="text" name="first_name" placeholder="Enter your first name" required/>
-                            </div>
-                            <br>
+<script>
+    function verifyPassword() {
+      var pw = document.getElementById("pswd").value;
+      //check empty password field
+      if(pw == "") {
+         document.getElementById("message").innerHTML = "**Fill the password please!";
+         return false;
+      }
+     
+     //minimum password length validation
+      if(pw.length < 8) {
+         document.getElementById("message").innerHTML = "**Password length must be atleast 8 characters";
+         return false;
+      }
+    
+    //maximum length of password validation
+      if(pw.length > 15) {
+         document.getElementById("message").innerHTML = "**Password length must not exceed 15 characters";
+         return false;
+      } else {
+         alert("Password is correct");
+      }
+    }
+</script>
+<script>
+    $(".imgAdd").click(function(){
+        $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
+      });
+      $(document).on("click", "i.del" , function() {
+          $(this).parent().remove();
+      });
+      $(function() {
+          $(document).on("change",".uploadFile", function()
+          {
+                  var uploadFile = $(this);
+              var files = !!this.files ? this.files : [];
+              if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+       
+              if (/^image/.test( files[0].type)){ // only image file
+                  var reader = new FileReader(); // instance of the FileReader
+                  reader.readAsDataURL(files[0]); // read the local file
+       
+                  reader.onloadend = function(){ // set image data as background of div
+                      //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+      uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
+                  }
+              }
+            
+          });
+      });
+</script>
 
-                            <!-- last name-->
-                            <div class="row px-3 d-inline-block">
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Last Name</h6>
-                                </label> 
-                                <input type="text" name="last_name" placeholder="Enter your last name" required/>
-                            </div>
-                            <br>
 
-                            <!-- email-->
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                <h6 class="mb-0 text-sm">Email Address</h6>
-                                </label> 
-                                <input class="mb-4" type="email" name="email" placeholder="Enter a valid email address" required/>
-                                {% if fail_email %}
-                                <label class="mb-1" style="color: tomato; margin-top: -1em;">
-                                    <b>{{fail_email}}</b><br>
-                                </label>  
-                                {% endif %} 
-                            </div>
 
-                            <!-- tel-->
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                <h6 class="mb-0 text-sm">Tel</h6>
-                                </label> 
-                                <input class="mb-4" type="text" name="tel" placeholder="Enter a telephone number" maxlength="10" required />
-                            </div>
+<div class="container">
+    <div class = "block">
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <div class="col-sm-2 imgUp">
+                <div class="imagePreview"></div>
+                <label class="btn btn-primary">
+                        Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                        </label>
+              </div><!-- col-2 -->
+           <!--  <img src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
+            <h1>Create an Account</h1>
+            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
+            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
+                <u>Bootstrapious</u></a>
+            </p> -->
+            
+        </div>
 
-                           <!-- type-->
-                           <div class="row px-3"> 
-                                <label class="mb-1">
-                                <h6 class="mb-0 text-sm">Type</h6>
-                                </label> 
-                                <input class="mb-4" type="text" name="type" placeholder="Enter a type" maxlength="10" required />
-                            </div>
-
-                            <!-- address-->
-                           <div class="row px-3"> 
-                                <label class="mb-1">
-                                <h6 class="mb-0 text-sm">Address</h6>
-                                </label> 
-                                <textarea name="address" >Enter address here...</textarea>
-                            </div>
-
-                            <!-- year-->
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                <h6 class="mb-0 text-sm">Year</h6>
-                                </label> 
-                                <input class="mb-4" type="text" name="year" placeholder="Enter a year" maxlength="2" required />
-                            </div>
-
-                            <!-- major-->
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                <h6 class="mb-0 text-sm">Major</h6>
-                                </label> 
-                                <textarea name="major" >Enter major here...</textarea>
-                            </div>
-
-                            <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Confirm</button> </div>
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form action="#">
+                <div class="row">
+                    <!-- select role -->
+                    <div class="collum1">
+                        <div class="d-grid gap-2 d-md-block">
+                            <a href="#" class="btn btn-outline-primary btn-lg btn-bloc" role="button" data-bs-toggle="button">Student</a>
+                            <a href="#" class="btn btn-outline-primary btn-lg btn-bloc" role="button" data-bs-toggle="button">Professor</a>
+                            <a href="#" class="btn btn-outline-primary btn-lg btn-bloc" role="button" data-bs-toggle="button">Company</a>
                             
                         </div>
                     </div>
+                    <!-- First Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                       
+                        <input id="Name" type="text" name="Name" placeholder="Name" class="form-control bg-white border-left-0 border-md" required>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="input-group col-lg-6 mb-4">
+                        
+                        <input id="ีUsername" type="text" name="Username" placeholder="Username" class="form-control bg-white border-left-0 border-md" required>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        
+                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="input-group col-lg-12 mb-4">
+                        
+                        <select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
+                            <option value="">+12</option>
+                            <option value="">+10</option>
+                            <option value="">+15</option>
+                            <option value="">+18</option>
+                        </select>
+                        <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3" >
+                    </div>.
+
+
+                    <!-- Job -->
+                    <div class="input-group col-lg-12 mb-4">
+                        
+                        <select id="job" name="jobtitle" class="form-control custom-select bg-white border-left-0 border-md">
+                            <option value="">Choose your job</option>
+                            <option value="">Designer</option>
+                            <option value="">Developer</option>
+                            <option value="">Manager</option>
+                            <option value="">Accountant</option>
+                        </select>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-6 mb-4">
+                        
+                        <form onsubmit ="verifyPassword">
+                        <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md" required >
+                        <span id = "message" style="color:red"> </span> <br><br>
+                        </form>
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="input-group col-lg-6 mb-4">
+                        
+                        <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                   <!--  <div class="form-group col-lg-12 mx-auto mb-0"> -->
+                      <!--   <a href="#" class="btn btn-primary btn-block py-2">
+                            <span class="font-weight-bold">Create your account</span>
+                        </a> -->
+                        <!--https://www.javatpoint.com/oprweb/test.jsp?filename=confirm-password-validation-in-javascript1-->
+                   
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                    <!-- </div>
+ -->
+                
+
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
+                    </div>
+
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
-</section>
+    </div>
+</div>
+</div>
 
-
+ 
+  
+</body>
 </html>
-{% endblock %}

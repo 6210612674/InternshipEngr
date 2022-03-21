@@ -28,10 +28,6 @@ def index(request):
     return render(request, "thread/index.html", {"thread_list": thread_list[::-1], "check_search": check_search, "title": search})
 
 
-def testmd(request):
-    return render(request, "thread/testmd.html")
-
-
 def create_thread(request):
     if not request.user.is_authenticated:
         messages.warning(request, "Login First to proceed")

@@ -1,6 +1,6 @@
 {% extends "account/layout.html" %} 
 {% block body %}
-<title>หน้าแรก</title>
+<title>หน้าแรก &#127969;</title>
 <style>
     .button1 {
         width: 110px;
@@ -13,7 +13,14 @@
     h1,h2,h3{
         font-family: "Athiti", sans-serif;
     }
-
+    span {
+        font-family: "Athiti", sans-serif;
+    }
+    .form-control{
+        width: 520px; 
+        height: 50px;  
+        margin-left: 25px;
+    }
 </style>
 
 {% if not request.user.is_authenticated %}
@@ -35,18 +42,21 @@
                 <div class="col-sm-5">
                     <div class="div2">
                         <div class="div4">
-                            <form action="{% url 'account:login' %}" method="post" id=login>
+                            <i class="fa fa-unlock" style="font-size: 25px; color: white; margin-top: 30px; margin-left: 30px;">
+                                &ensp;<span style="font-size: 30px; color: white; padding-top: 50px;">เข้าสู่ระบบ</span>
+                            </i>
+                            <form action="{% url 'account:login' %}" method="post" id=login style="margin-top: 25px;">
                                 {% csrf_token %}
-                                <input class="form-control" style="width: 400px; height: 50px; margin-top: 50px; margin-left: 100px;" type="text" placeholder="Username" name="username" aria-label="Login"required>
+                                <input class="form-control" type="text" placeholder="Username" name="username" aria-label="Login"required>
                                 <br>
-                                <input class="form-control" style="width: 400px; height: 50px; margin-top: 25px; margin-left: 100px;" type="password" placeholder="Password" name="password"aria-label="Login" required>
+                                <input class="form-control" type="password" placeholder="Password" name="password"aria-label="Login" required>
                                 <br>
                                 <div class="d-flex flex-row-reverse">
                                     <div class="p-2 ">
-                                        <button class="btn button1" style="margin-right: 60px; margin-top: 10px;" type="submit">Login</button>
+                                        <button class="btn button1" style="margin-right: 20px; margin-top: 5px;" type="submit"><p style="font-size: 16px; margin-top: 2px;">เข้าสู่ระบบ</p></button>
                                     </div>
-                                    <div class="p-2 " style="margin-top: 15px;">
-                                        <a href="{% url 'account:register' %}">
+                                    <div class="p-2 " style="margin-top: 10px;">
+                                        <a href="{% url 'account:register_page' %}">
                                             <u class="p3">ลงทะเบียน</u>
                                         </a>
                                     </div>
@@ -57,61 +67,30 @@
                 </div>
             </div>
         </div>
-        <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวสาร</u></h1>
-        <div class="grid-container">
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-          </div>
-          
-        <div class="line2"></div>
-
-        <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวประชาสัมพันธ์</u></h1>
-        <div class="grid-container">
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-        </div>
-    </div>
-{% else %}
-    <div class="div3">
-        <!-- sildeshow -->
-        <div class="col-sm-7">
-            <div class="w3-display-container" style="margin-left: 20%;">
-                <img class="mySlides img2" src="/static/images/img1.jpg" >
-                <img class="mySlides img2" src="/static/images/img4.jpg" >
-                <img class="mySlides img2" src="/static/images/img5.jpg" >
+{% endif %}
+    
+{% if request.user.is_authenticated %}
+<div class="div3">
+    <div class="comtainer">
+        <div class="row">
+            <!-- sildeshow -->
+            <div class="col-sm-7">
+                <div class="w3-display-container" style="margin-left: 20%;">
+                    <img class="mySlides img1" src="/static/images/img1.jpg" >
+                    <img class="mySlides img1" src="/static/images/img4.jpg" >
+                    <img class="mySlides img1" src="/static/images/img5.jpg" >
                     
-                <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
-            </div> 
+                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
+                </div> 
+            </div>
         </div>
     </div>
-    <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวสาร</u></h1>
+{% endif %}
+    <div class="div5">
+        <br>
+        <h1 style="margin-left: 125px; margin-top: 25px;"><b>ข่าวสาร</b></h1>
+        <div class="line3"></div>
         <div class="grid-container">
             <div><img class="img4" src="/static/images/img6.jpg">
                 <p style="margin: 20px;">
@@ -128,33 +107,33 @@
                     ชื่อกระทู้
                 </p>
             </div>
-          </div>
-
-    <div class="line2"></div>
-
-    <h1 style="margin-left: 125px; margin-top: 50px;"><u>ข่าวประชาสัมพันธ์</u></h1>
-        <div class="grid-container">
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
+            <br>
         </div>
         
+        <div class="line2"></div>
 
-{% endif %}
-
-
+        <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวประชาสัมพันธ์</b></h1>
+        <div class="line3"></div>
+        <br>
+        <div class="grid-container">
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
+        </div>
+    </div>
+    
 <!-- slideshow -->
 <script>
     var slideIndex = 1;

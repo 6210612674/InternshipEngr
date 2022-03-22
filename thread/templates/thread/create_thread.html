@@ -1,3 +1,5 @@
+{% extends "thread/layout.html"%}
+{% block body%}
 <title>Test Create Thread</title>
 
 <form method="POST" action="{% url 'thread:create_thread' %}" enctype="multipart/form-data">
@@ -27,5 +29,5 @@
         </div>
     </div>
 </form>
-
+{% endblock %}
 {{ form.media }}

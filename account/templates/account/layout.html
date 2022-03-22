@@ -14,8 +14,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
 <style>
+    .container {
+  width: 50px;
+}
 </style>
-<body >
+<body style="background-image: url('/static/images/img5.jpg');">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
         <a class="navbar-brand" href="#"></a>
@@ -27,26 +30,30 @@
                     <div class="icon">
                         <i class="search fa fa-search"></i>
                     </div>
-                    
+               
                     <div class="input">
                         <input type="text" placeholder="Search" id="search">
-                        <!-- 
+                         
                         <i class="clear fa fa-times"></i>
-                         -->
+                         
                     </div>
                 </div>
             </div>
 
-            <!-- contact -->
             <a class="p-2" href="#" style="text-decoration: none; margin-right: 20px; margin-top: -1px;">
                 <p class="p1">ติดต่อ</p>
             </a>
+            {% if request.user.is_authenticated %}
+                <div class="p-2 ">
+                    <p class="p1">สวัสดี, {{request.user.username}}</p>
+                </div>
+            {% endif %}
         </div>
     </nav>
 
     <!-- menu bar -->
     <section class="menubar">
-        <div id="nav" class="d-flex flex-row-reverse menubar" style="right: 0;">
+        <div id="nav" class="d-flex flex-row-reverse menubar shadow" style="padding-right: 20px;">
                 {% if request.user.is_authenticated %}
                     <a class="p-2 " href="#">
                         <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
@@ -58,17 +65,12 @@
                 <a class="p-2 " href="#">
                     <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
                 </a>
-                <a class="p-2 " href="#">
+                <a class="p-2 " href="{% url 'thread:index' %}">
                     <p class="p2">&#128204; ข่าวสาร</p>
                 </a>
                 <a class="p-2 " href="{% url 'account:index' %}">
                     <p class="p2">&#127969; หน้าแรก</p>
                 </a>
-                {% if request.user.is_authenticated %}
-                <div class="p-2 ">
-                    <p class="p2">สวัสดี, {{request.user.username}}</p>
-                </div>
-                {% endif %}
             </div>
         </nav>
     </div>
@@ -95,7 +97,7 @@
         <div class="line"></div>
         <a href="#"><p>จัดการฟอร์ม</p></a>
         <div class="line"></div>
-        <a href="#"><p>สร้างกระทู้</p></a>
+        <a href="{% url 'thread:create_thread' %}"><p>สร้างกระทู้</p></a>
         <div class="line"></div>
         <a href="#"><p>ตรวจสอบกระทู้</p></a>
         <div class="line"></div>
@@ -103,15 +105,6 @@
         <div class="line"></div>
     </div>
     
-
-    <!-- 
-    <a href="{% url 'account:index' %} ">Index</a>
-    {% if request.user.is_authenticated %}
-    <a href="{% url 'account:logout' %} ">Logout</a>
-    {% else %}
-    <a href="{% url 'account:login_page' %} ">Login</a>
-    <a href="{% url 'account:register_page' %} ">Register</a>
-    {% endif %} -->
     {% block body %}
     {% endblock %}
 

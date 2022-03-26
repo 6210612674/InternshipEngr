@@ -51,10 +51,10 @@
                         <p class="p2">&#128276;</p>
                     </a>
                 {% endif %}
-                <a class="p-2 " href="#">
+                <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
                     <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
                 </a>
-                <a class="p-2 " href="{% url 'thread:index' %}">
+                <a class="p-2 " href="{% url 'thread:thread_page' %}">
                     <p class="p2">&#128204; ข่าวสาร</p>
                 </a>
                 <a class="p-2 " href="{% url 'account:index' %}">

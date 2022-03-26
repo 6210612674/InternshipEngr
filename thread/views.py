@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template.defaultfilters import title
 from django.urls import reverse
 from django.contrib import messages
+
+from account.models import Account
 from .models import *
 import datetime
 from .forms import ThreadForm, MarkdownForm
@@ -10,32 +12,39 @@ from .forms import ThreadForm, MarkdownForm
 
 
 def index(request):
+    return render(request, "thread/index.html")
+
+
+def thread_page(request):
     thread_list = []
     check_search = False
     search = ""
-    # use when user search Dormitory
+    # use when user search Thread
     if request.method == "POST":
         search = request.POST["search"]
         thread_list = []
         check_search = True
         for x in Thread.objects.all():
-            if x.search(search):
-                thread_list.append(x)
+            account = Account.objects.get(user=x.author)
+            if account.type == "Professor":
+                if x.search(search):
+                    thread_list.append(x)
     # use when user didnt search Thread so it will return all Thread
     else:
         for n in Thread.objects.all():
-            thread_list.append(n)
-    return render(request, "thread/index.html", {"thread_list": thread_list[::-1], "check_search": check_search, "title": search})
+            account = Account.objects.get(user=n.author)
+            if account.type == "Professor":
+                thread_list.append(n)
+    return render(request, "thread/thread_page.html", {"thread_list": thread_list[::-1], "check_search": check_search, "title": search})
 
 
 def create_thread(request):
     if not request.user.is_authenticated:
         messages.warning(request, "Login First to proceed")
-        return HttpResponseRedirect(reverse("dormitory:index"))
+        return HttpResponseRedirect(reverse("account:index"))
 
     if request.method == "POST":
         header = request.POST["header"]
-
         content = MarkdownForm(request.POST)
 
         if Thread.objects.filter(header=header).first():
@@ -49,7 +58,7 @@ def create_thread(request):
                                                date=datetime.datetime.now(datetime.timezone.utc))
             new_thread.save()
 
-            return HttpResponseRedirect(reverse("thread:index"))
+            return HttpResponseRedirect(reverse("thread:thread_page"))
     else:
         content = MarkdownForm()
     return render(request, 'thread/create_thread.html', {'form': content})
@@ -57,12 +66,8 @@ def create_thread(request):
 
 def thread(request, thread_id):
     this_thread = get_object_or_404(Thread, id=thread_id)
-    check_my_thread = 0
-    if request.user.username == this_thread.author.username:
-        check_my_thread += 1
     return render(request, "thread/thread.html", {
         "thread": this_thread,
-        "check_my_thread": check_my_thread,
     })
 
 
@@ -77,7 +82,7 @@ def delete_thread(request, thread_id):
         return HttpResponseRedirect(reverse("thread:thread", args=(thread_id,)))
 
     this_thread.delete()
-    return HttpResponseRedirect(reverse("thread:testmd"))
+    return HttpResponseRedirect(reverse("thread:thread_page"))
 
 
 def update_thread(request, thread_id):
@@ -107,4 +112,33 @@ def update_thread(request, thread_id):
         "thread": this_thread,
         "check_update": check_update,
         "form": content,
+    })
+
+
+def annoucement_page(request):
+    annoucement_list = []
+    check_search = False
+    search = ""
+    # use when user search Annoucement
+    if request.method == "POST":
+        search = request.POST["search"]
+        check_search = True
+        for x in Thread.objects.all():
+            account = Account.objects.get(user=x.author)
+            if account.type == "Company":
+                if x.search(search):
+                    annoucement_list.append(x)
+    # use when user didnt search Thread so it will return all Annoucement
+    else:
+        for n in Thread.objects.all():
+            account = Account.objects.get(user=n.author)
+            if account.type == "Company":
+                annoucement_list.append(n)
+    return render(request, "thread/announcement_page.html", {"annoucement_list": annoucement_list[::-1], "check_search": check_search, "title": search})
+
+
+def annoucement(request, annoucement_id):
+    this_annoucement = get_object_or_404(Thread, id=annoucement_id)
+    return render(request, "thread/annoucement.html", {
+        "annoucement": this_annoucement,
     })

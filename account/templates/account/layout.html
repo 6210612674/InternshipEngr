@@ -15,7 +15,25 @@
     
 <style>
     .container {
-  width: 50px;
+        width: 50px;
+    }
+
+    .notification {
+        margin-top: 16px;
+        margin-left: 5px;
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+    }
+    .notification .badge {
+        position: absolute;
+        width: 20px;
+        top: 7px;
+        right: 2px;
+        padding-top: 5px 10px;
+        border-radius: 50%;
+        background-color: rgb(235, 74, 74);
+        color: white;
 }
 </style>
 <body style="background-image: url('/static/images/img5.jpg');">
@@ -55,12 +73,14 @@
     <section class="menubar">
         <div id="nav" class="d-flex flex-row-reverse menubar shadow" style="padding-right: 20px;">
                 {% if request.user.is_authenticated %}
-                    <a class="p-2 " href="#">
+                    <div class="p-2 ">
                         <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
-                    </a>
-                    <a class="p-2 " href="#">
-                        <p class="p2">&#128276;</p>
-                    </a>
+                    </div>
+                    <div class="p-2 notification" style="cursor: pointer;" onclick="openNoti()">
+                        <span style="font-size: 20px;" >&#128276;</span>
+                        <span class="badge">3</span>
+                    </div>
+                     
                 {% endif %}
                 <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
                     <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
@@ -104,9 +124,14 @@
         <a href="{% url 'account:logout' %}"><p>ออกจากระบบ</p></a>
         <div class="line"></div>
     </div>
+    <!-- Notification -->
+    <div id="myNoti" class="sidenav1">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNoti()">&times;</a>
+        <a href="#"><p>โปรไฟล์</p></a>
+        <div class="line"></div>
+    </div>
     
     {% block body %}
     {% endblock %}
-
 </body>
 </html>

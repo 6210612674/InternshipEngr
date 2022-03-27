@@ -21,6 +21,7 @@
         height: 50px;  
         margin-left: 25px;
     }
+    
 </style>
 
 {% if not request.user.is_authenticated %}
@@ -91,29 +92,32 @@
         <br>
         <h1 style="margin-left: 125px; margin-top: 25px;"><b>ข่าวสาร</b></h1>
         <div class="line3"></div>
-        <div class="grid-container">
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <div><img class="img4" src="/static/images/img6.jpg">
-                <p style="margin: 20px;">
-                    ชื่อกระทู้
-                </p>
-            </div>
-            <br>
+        <a href="{% url 'thread:thread_page' %}" style="margin-top: 20px;margin-left: 125px; font-size: 16px;"><u>ข่าวสารทั้งหมด</u></a>
+        <div><img class="img5" src="/static/images/img6.jpg">
+            <span style="margin: 10px;">
+                <b style="font-size: 18px;">ชื่อกระทู้</b>
+            </span>
         </div>
-        
+
+        <div><img class="img5" src="/static/images/img6.jpg">
+            <span style="margin: 10px;">
+                <b style="font-size: 18px;">ชื่อกระทู้</b>
+            </span>
+        </div>
+
+        <div><img class="img5" src="/static/images/img6.jpg">
+            <span style="margin: 10px;">
+                <b style="font-size: 18px;">ชื่อกระทู้</b>
+            </span>
+        </div>
+         
+      
         <div class="line2"></div>
 
         <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวประชาสัมพันธ์</b></h1>
+    
         <div class="line3"></div>
+        <a href="{% url 'thread:annoucement_page'%}" style="padding-top: 100px;margin-left: 125px; font-size: 16px;"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></a>
         <br>
         <div class="grid-container">
             <div><img class="img4" src="/static/images/img6.jpg">
@@ -131,8 +135,17 @@
                     ชื่อกระทู้
                 </p>
             </div>
+            <div><img class="img4" src="/static/images/img6.jpg">
+                <p style="margin: 20px;">
+                    ชื่อกระทู้
+                </p>
+            </div>
         </div>
+        
     </div>
+    
+
+
     
 <!-- slideshow -->
 <script>

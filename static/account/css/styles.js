@@ -2,6 +2,7 @@ var startProductBarPos=-1;
 window.onscroll=function(){
   var bar = document.getElementById('nav');
   var navbar = document.getElementById("mySidenav");
+  var notibar = document.getElementById("myNoti")
 
   if(startProductBarPos<0)startProductBarPos=findPosY(bar);
 
@@ -12,6 +13,9 @@ window.onscroll=function(){
     //Side Menu
     navbar.classList.add("sticky");
     navbar.classList.add("mytopstyle");
+    //Noti bar
+    notibar.classList.add("sticky");
+    notibar.classList.add("mytopstyle");
     
 
   }else{
@@ -20,6 +24,9 @@ window.onscroll=function(){
     //Side Menu
     navbar.classList.remove("sticky");
     navbar.classList.remove("mytopstyle");
+    //Noti bar
+    notibar.classList.remove("sticky");
+    notibar.classList.remove("mytopstyle");
   }
 };
 
@@ -47,6 +54,20 @@ function openNav() {
 //Close Side Menu
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+  }
+
+//Open Notification 
+function openNoti() {
+  document.getElementById("myNoti").style.width = "250px";
+  document.getElementById("myNoti").style.height = "200px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+  }
+//Close Notification 
+function closeNoti() {
+  document.getElementById("myNoti").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
   document.body.style.backgroundColor = "white";
   }

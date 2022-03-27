@@ -1,0 +1,66 @@
+{% extends "thread/layout.html"%}
+{% block body %}
+<title>ข่าวประชาสัมพันธ์ &#128204;</title>
+<style>
+    h1,h2,h3{
+        font-family: "Athiti", sans-serif;
+    }
+    ::placeholder {
+        color: #2d4263;
+        opacity: 1;
+        font-family: "Athiti", sans-serif;
+    }
+    .line2 {
+        height: 1px;
+        width: 100%;
+        background-color: #E0E0E0;
+        margin-top: 10px;   
+    }
+</style>
+
+
+<!--Thread list-->
+<div class="d-flex" style="margin-top: 30px;">
+    {% if check_search %}
+        <h1 class="p-2" style="margin-left: 2em; padding: 0.5em;"><b>กำลังค้นหา : {{title}} &#128204;</b></h1>
+    {% else %}
+        <h1 class="p-2" style="margin-left: 2em; padding: 0.5em; "><b>ข่าวประชาสัมพันธ์ล่าสุด &#128204;</b></h1>
+    {% endif %}
+    <!-- search thread -->
+    <div class="p-2" style="margin-top: 18px;">
+        <form class="d-flex " action="{% url 'thread:index' %}" method="POST" style="left: 0;">
+            {% csrf_token %}
+            <input class="form-control" type="search" name="search" placeholder="ค้นหาข่าวที่สนใจ" aria-label="Search" style="width: 300px;">
+            <button class="btn button3" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+    <a href="{% url 'thread:index' %}" style="margin-top: 32px; margin-left: 20px;"><b class="p9"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></b></a>
+</div>
+
+    <div style="margin-left: 12%;margin-right: 12%; margin-top: 3em; margin-bottom: 5em;">
+    {% if not annoucement_list %}
+        <b class="p5">ไม่พบข่าวประชาสัมพันธ์</b>
+        <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+        <b class="p5">เพื่อสร้างข่าวประชาสัมพันธ์</b>
+        <div class="line2"></div>
+        <br>
+    {% else %}
+        {% for annoucement in annoucement_list %}
+        <div style="margin-bottom: 5em;">
+            <img class="img1" src="/static/images/avatar.png" style="float:left; margin-right: 1.5em;">
+            <p class="p7">
+                {{annoucement.author.username}} &#8986; {{annoucement.date}} 
+            </p>
+            <a href = "{% url 'thread:annoucement' annoucement.id %}" style="text-decoration: none;">
+            <b class="p8" style="float: left;">{{annoucement.header}}</b></a>
+        </div>
+        <hr>
+        <br>
+        {% endfor %}
+    {% endif %}
+    </div>
+{% endblock %}

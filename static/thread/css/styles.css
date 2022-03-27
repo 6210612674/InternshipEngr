@@ -107,13 +107,17 @@ p {
 }
 
 .p9 {
-  font-size: 14px;
+  font-size: 16px;
   font-family: "Athiti", sans-serif;
 }
 
 a {
   font-family: "Athiti", sans-serif;
   text-decoration: none !important;
+}
+
+b {
+  font-family: "Athiti", sans-serif;
 }
 
 .sticky {

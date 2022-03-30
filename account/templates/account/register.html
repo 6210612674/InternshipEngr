@@ -144,25 +144,29 @@
                         
                         <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>
                     </div>
+                    {% if fail_email %}
+                    <label class="mb-1" style="color: tomato; margin-top: -1em;">
+                        <b>{{fail_email}}</b><br>
+                    </label>  
+                    {% endif %} 
+
                     <DIV ID="SectionName" STYLE="display:none">Text to be shown and hidden</DIV>
 
                     <!--stu-->
                     <div id = "student" style="display:block" >
 
                         <div class="input-group col-lg-12 mb-4">
-                        <input id="year" type="year" name="year" placeholder="Study Year" maxlength="2" class="form-control bg-white border-left-0 border-md" required>
+                        <input id="year" type="year" name="year" placeholder="Study Year" maxlength="2" class="form-control bg-white border-left-0 border-md">
                         </div>
 
                         <div class="input-group col-lg-12 mb-4">
-                        <input id="major" type="major" name="major" placeholder="Major"  class="form-control bg-white border-left-0 border-md" required>
+                        
+                        <input id="major" type="text" name="major" placeholder="Major"  class="form-control bg-white border-left-0 border-md" >
                         </div>
                     </div>
 
                     <!--pro-->
                     <div id = "professor" style="display:none" >
-                        <div class="input-group col-lg-12 mb-4">
-                        <input id="major" type="major" name="major" placeholder="Major" class="form-control bg-white border-left-0 border-md">
-                        </div>
                     </div>
 
                     <!-- com -->

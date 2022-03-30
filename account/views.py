@@ -66,22 +66,22 @@ def register(request):
         major = request.POST["major"]
         # Check username is already taken
         if User.objects.filter(username=username).first():
-            return render(request, "user/register.html", {"fail_username": "This username is already taken"})
+            return render(request, "account/register.html", {"fail_username": "This username is already taken"})
         # Check the validity of a Password
         if (len(password) < 8):
-            return render(request, "user/register.html", {"fail_password": "Password must have at least 8"})
+            return render(request, "account/register.html", {"fail_password": "Password must have at least 8"})
         elif not re.search("[a-z]", password):
-            return render(request, "user/register.html", {"fail_password": "Password must have at least 1 of a-z"})
+            return render(request, "account/register.html", {"fail_password": "Password must have at least 1 of a-z"})
         elif not re.search("[A-Z]", password):
-            return render(request, "user/register.html", {"fail_password": "Password must have at least 1 of A-Z"})
+            return render(request, "account/register.html", {"fail_password": "Password must have at least 1 of A-Z"})
         elif not re.search("[0-9]", password):
-            return render(request, "user/register.html", {"fail_password": "Password must have at least 1 of 0-9"})
+            return render(request, "account/register.html", {"fail_password": "Password must have at least 1 of 0-9"})
         # Check re-password is same as password
         if password != re_password:
-            return render(request, "user/register.html", {"fail_re_password": "Invalid password confirm"})
+            return render(request, "account/register.html", {"fail_re_password": "Invalid password confirm"})
         # Check email is already taken
         if User.objects.filter(email=email).first():
-            return render(request, "user/register.html", {"fail_email": "This email is already taken"})
+            return render(request, "account/register.html", {"fail_email": "This email is already taken"})
         # Add Object User
         add_user = User(username=username, email=email,
                         first_name=first_name, last_name=last_name)

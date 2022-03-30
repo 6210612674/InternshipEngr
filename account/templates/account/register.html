@@ -52,6 +52,7 @@
         stu.style.display = 'block';
         pro.style.display = 'none';
         com.style.display = 'none';
+        document.getElementById("type").value = "Student";
     }
     function ShowAndHide_p() {
         var stu = document.getElementById('student') ;
@@ -60,6 +61,7 @@
         stu.style.display = 'none';
         pro.style.display = 'block';
         com.style.display = 'none';
+        document.getElementById("type").value = "Professor";
 
     }
     function ShowAndHide_c() {
@@ -69,6 +71,7 @@
         stu.style.display = 'none';
         pro.style.display = 'none';
         com.style.display = 'block';
+        document.getElementById("type").value = "Company";
     }
     </script>
 
@@ -96,7 +99,8 @@
 
         <!-- Registeration Form -->
         <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="#">
+            <form action="{% url 'account:register' %}" method="post" id=register_form>
+                {% csrf_token %}
                 <div class="row">
                     <!-- select role -->
                     
@@ -104,27 +108,36 @@
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
                         <label ONCLICK="ShowAndHide()"class="btn btn-outline-primary" for="btnradio1">Student</label>
                       
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" >
                         <label ONCLICK="ShowAndHide_p()" class="btn btn-outline-primary" for="btnradio2">Professor</label>
                       
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" >
                         <label ONCLICK="ShowAndHide_c()" class="btn btn-outline-primary" for="btnradio3">Company</label>
                       </div>
                     
                   
-                 
+                    
                     <div> <p> </p></div>
+                    
                     <!-- First Name -->
                     <div class="input-group col-lg-6 mb-4">
-                       
-                        <input id="Name" type="text" name="Name" placeholder="Name" class="form-control bg-white border-left-0 border-md" required>
+                        <input id="Name" type="text" name="first_name" placeholder="First Name" class="form-control bg-white border-left-0 border-md" required>
+                    </div>
+                    <div class="input-group col-lg-6 mb-4">
+                        <input id="Name" type="text" name="last_name" placeholder="Last Name" class="form-control bg-white border-left-0 border-md" required>
                     </div>
 
                     <!-- Username -->
                     <div class="input-group col-lg-6 mb-4">
                         
-                        <input id="ีUsername" type="text" name="Username" placeholder="Username" class="form-control bg-white border-left-0 border-md" required>
+                        <input  type="text" name="username" placeholder="Username" class="form-control bg-white border-left-0 border-md" required>
                     </div>
+
+                    {% if fail_username %}
+                    <label class="mb-1" style="color: tomato; margin-top: -1em;">
+                        <b>{{fail_username}}</b><br>
+                    </label>  
+                    {% endif %} 
 
                     <!-- Email Address -->
                     <div class="input-group col-lg-12 mb-4">
@@ -132,38 +145,37 @@
                         <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>
                     </div>
                     <DIV ID="SectionName" STYLE="display:none">Text to be shown and hidden</DIV>
+
                     <!--stu-->
                     <div id = "student" style="display:block" >
 
                         <div class="input-group col-lg-12 mb-4">
-                        <input id="year" type="year" name="year" placeholder="Study Year" class="form-control bg-white border-left-0 border-md" required>
+                        <input id="year" type="year" name="year" placeholder="Study Year" maxlength="2" class="form-control bg-white border-left-0 border-md" required>
                         </div>
 
                         <div class="input-group col-lg-12 mb-4">
-                        <input id="major" type="major" name="major" placeholder="Major" class="form-control bg-white border-left-0 border-md" required>
+                        <input id="major" type="major" name="major" placeholder="Major"  class="form-control bg-white border-left-0 border-md" required>
                         </div>
                     </div>
+
                     <!--pro-->
                     <div id = "professor" style="display:none" >
-
                         <div class="input-group col-lg-12 mb-4">
-                        <input id="major" type="major" name="major" placeholder="Major" class="form-control bg-white border-left-0 border-md" required>
+                        <input id="major" type="major" name="major" placeholder="Major" class="form-control bg-white border-left-0 border-md">
                         </div>
                     </div>
 
                     <!-- com -->
-                    
                     <div id = "company" style="display:none" >
-
                         <div class="input-group col-lg-12 mb-4">
                         
-                            <input id="address" type="address" name="address" placeholder="Address" class="form-control bg-white border-left-0 border-md" required>
+                            <input id="address" type="address" name="address" placeholder="Address" class="form-control bg-white border-left-0 border-md">
                         </div>
                     </div>
 
                       <!-- Phone Number -->
-                      <div class="input-group col-lg-12 mb-4">
-                        <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3" >
+                    <div class="input-group col-lg-12 mb-4">
+                        <input  type="tel" name="tel" id="tel" placeholder="Phone Number" maxlength="10" class="form-control bg-white border-md border-left-0 pl-3" >
                     </div>.
 
 
@@ -176,19 +188,31 @@
                         </form>
                     </div>
 
+                    {% if fail_password %}
+                    <label class="mb-1" style="color: tomato; margin-top: -1em;">
+                        <b>{{fail_password}}</b><br> 
+                    </label> 
+                    {% endif %}
+
+
                     <!-- Password Confirmation -->
                     <div class="input-group col-lg-6 mb-4">
                         
-                        <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
+                        <input  type="password" name="re_password" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
+                    </div>
+                    {% if fail_re_password %}
+                    <label class="mb-1" style="color: tomato; margin-top: 0em;">
+                        <b>{{fail_re_password}}</b><br>
+                    </label>  
+                    {% endif %}
+
+                     <!-- Type -->
+                    <div class="input-group col-lg-6 mb-4">
+                        
+                        <input type="text" id="type" name="type" value="Student"  class="form-control bg-white border-left-0 border-md" required readonly>
                     </div>
 
-                    <!-- Submit Button -->
-                   <!--  <div class="form-group col-lg-12 mx-auto mb-0"> -->
-                      <!--   <a href="#" class="btn btn-primary btn-block py-2">
-                            <span class="font-weight-bold">Create your account</span>
-                        </a> -->
-                        <!--https://www.javatpoint.com/oprweb/test.jsp?filename=confirm-password-validation-in-javascript1-->
-                   
+                    <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
      
                 

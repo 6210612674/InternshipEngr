@@ -28,8 +28,34 @@
         color: white;
         border: 2px solid #724141;
     }
+    .button2 {
+        background-color: #DD4A48;
+        width: 120px;
+        color: white;
+        border: 2px solid #DD4A48;
+        border-radius: 10px;
+    }
+
+    .button2:hover {
+        background-color: #724141;
+        color: white;
+        border: 2px solid #724141;
+    }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
 </style>
-<body >
+<script>
+    function logout()
+    {
+        var answer = window.confirm("ยืนยันการออกจากระบบ");
+        return answer;
+    }
+</script>
+<body style="margin-bottom: 60em;">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
         <a class="navbar-brand" href="#"></a>
@@ -91,12 +117,20 @@
         <div class="line"></div>
         <a href="#"><p>ตรวจสอบกระทู้</p></a>
         <div class="line"></div>
-        <a href="{% url 'account:logout' %}"><p>ออกจากระบบ</p></a>
+        <a href="{% url 'account:logout' %}" onclick="logout()"><p>ออกจากระบบ</p></a>
         <div class="line"></div>
     </div>
+    <br>
+    <br>
     
     {% block body %}
     {% endblock %}
-
 </body>
+
+    <!-- Footer -->
+    <footer class="footer " style="margin-bottom: 0em;">
+        <div class="text-center p-4" style="background-color: #d2533aef;">
+            <a class="text-reset fw-bold" href="#">About</a>
+        </div>
+    </footer>
 </html>

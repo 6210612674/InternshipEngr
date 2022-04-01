@@ -34,9 +34,22 @@
         border-radius: 50%;
         background-color: rgb(235, 74, 74);
         color: white;
-}
+    }
+    .footer {
+        position:fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
 </style>
-<body style="background-image: url('/static/images/img5.jpg');">
+<script>
+    function logout()
+    {
+        var answer = window.confirm("ยืนยันการออกจากระบบ");
+        return answer;
+    }
+</script>
+<body style="background-image: url('/static/images/img5.jpg'); ">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
         <a class="navbar-brand" href="#"></a>
@@ -121,7 +134,7 @@
         <div class="line"></div>
         <a href="#"><p>ตรวจสอบกระทู้</p></a>
         <div class="line"></div>
-        <a href="{% url 'account:logout' %}"><p>ออกจากระบบ</p></a>
+        <a href="{% url 'account:logout' %}" onclick="logout();"><p>ออกจากระบบ</p></a>
         <div class="line"></div>
     </div>
     <!-- Notification -->
@@ -134,4 +147,10 @@
     {% block body %}
     {% endblock %}
 </body>
+    <!-- Footer -->
+    <footer class="footer ">
+        <div class="text-center p-4" style="background-color: #d2533aef;">
+            <a class="text-reset fw-bold" href="#">About</a>
+        </div>
+    </footer>
 </html>

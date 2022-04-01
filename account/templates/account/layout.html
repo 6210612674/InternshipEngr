@@ -44,18 +44,21 @@
 
             <!-- search bar -->
             <div class="p-2 ">
-                <div class="container">
-                    <div class="icon">
-                        <i class="search fa fa-search"></i>
+                <form action="{% url 'thread:thread_page' %}" method="POST" style="left: 0;">
+                    {% csrf_token %}
+                    <div class="container">
+                        <button class="btn icon" type="submit">
+                            <i class="search fa fa-search" ></i>
+                        </button>
+                
+                        <div class="input">
+                            <input type="search" name="search" placeholder="Search" aria-label="Search">
+                            
+                            <i class="clear fa fa-times"></i>
+                            
+                        </div>
                     </div>
-               
-                    <div class="input">
-                        <input type="text" placeholder="Search" id="search">
-                         
-                        <i class="clear fa fa-times"></i>
-                         
-                    </div>
-                </div>
+                </form>
             </div>
 
             <a class="p-2" href="#" style="text-decoration: none; margin-right: 20px; margin-top: -1px;">
@@ -95,11 +98,8 @@
         </nav>
     </div>
     <script>
-        let search = document.querySelector(".search");
         let clear = document.querySelector(".clear");
-         search.onclick = function(){
-            document.querySelector(".container").classList.toggle('active');
-        }
+
         clear.onclick = function(){
             document.getElementById("search").value = "";
         }

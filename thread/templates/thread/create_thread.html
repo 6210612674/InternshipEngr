@@ -8,15 +8,16 @@
 
     <div class="container" >
         <div class="row">
-            <div class="col" style="margin-top: 50px;">
+            {%if fail_header%} 
+                <div style="color: tomato; margin-left: 5em;"><p class="p5"><b>{{fail_header}}</b></p></div><br> 
+            {%endif%}
+            <div class="col" style="margin-top: 25px;">
                 <div class="form-group" style="width: 25em; margin-left: 5em;">
                     <label><b class="p5">ชื่อกระทู้</b></label>
                     <p><input type="text" name="header" class="form-control" maxlength="120" placeholder="Enter thread header" required/></input></p>
                     <br>
                 </div>
-                {%if fail_header%} 
-                    <div style="color: tomato; margin-left: 5em;"><p class="p2"><b>{{fail_header}}</b></p></div><br> 
-                {%endif%}
+                
                 <div class="form-group" style="width: 25em; margin-left: 5em;">
                         <label><b class="p5">รูปภาพ</b></label>
                         <div>
@@ -30,11 +31,11 @@
             </div>
                 <br>
                 <br>
-            <div class="col" style="margin-left: 5em; margin-top:40px;"> 
+            <div class="col" style="margin-left: 5em; margin-top:25px;"> 
                 <p class="p5"><b>เนื้อหา:</b>{{ form.Content }}</p>
                 </div>
         </div>
     </div>
 </form>
-{% endblock %}
 {{ form.media }}
+{% endblock %}

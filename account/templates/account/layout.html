@@ -34,9 +34,22 @@
         border-radius: 50%;
         background-color: rgb(235, 74, 74);
         color: white;
-}
+    }
+    .footer {
+        position:fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
 </style>
-<body style="background-image: url('/static/images/img5.jpg');">
+<script>
+    function logout()
+    {
+        var answer = window.confirm("ยืนยันการออกจากระบบ");
+        return answer;
+    }
+</script>
+<body style="background-image: url('/static/images/img5.jpg'); ">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
         <a class="navbar-brand" href="#"></a>
@@ -44,18 +57,21 @@
 
             <!-- search bar -->
             <div class="p-2 ">
-                <div class="container">
-                    <div class="icon">
-                        <i class="search fa fa-search"></i>
+                <form action="{% url 'thread:thread_page' %}" method="POST" style="left: 0;">
+                    {% csrf_token %}
+                    <div class="container">
+                        <button class="btn icon" type="submit">
+                            <i class="search fa fa-search" ></i>
+                        </button>
+                
+                        <div class="input">
+                            <input type="search" name="search" placeholder="Search" aria-label="Search">
+                            
+                            <i class="clear fa fa-times"></i>
+                            
+                        </div>
                     </div>
-               
-                    <div class="input">
-                        <input type="text" placeholder="Search" id="search">
-                         
-                        <i class="clear fa fa-times"></i>
-                         
-                    </div>
-                </div>
+                </form>
             </div>
 
             <a class="p-2" href="#" style="text-decoration: none; margin-right: 20px; margin-top: -1px;">
@@ -95,11 +111,8 @@
         </nav>
     </div>
     <script>
-        let search = document.querySelector(".search");
         let clear = document.querySelector(".clear");
-         search.onclick = function(){
-            document.querySelector(".container").classList.toggle('active');
-        }
+
         clear.onclick = function(){
             document.getElementById("search").value = "";
         }
@@ -121,7 +134,7 @@
         <div class="line"></div>
         <a href="#"><p>ตรวจสอบกระทู้</p></a>
         <div class="line"></div>
-        <a href="{% url 'account:logout' %}"><p>ออกจากระบบ</p></a>
+        <a href="{% url 'account:logout' %}" onclick="logout();"><p>ออกจากระบบ</p></a>
         <div class="line"></div>
     </div>
     <!-- Notification -->
@@ -134,4 +147,10 @@
     {% block body %}
     {% endblock %}
 </body>
+    <!-- Footer -->
+    <footer class="footer ">
+        <div class="text-center p-4" style="background-color: #d2533aef;">
+            <a class="text-reset fw-bold" href="#">About</a>
+        </div>
+    </footer>
 </html>

@@ -1,3 +1,4 @@
+
 {% extends "thread/layout.html"%}
 {% block body %}
 <title>ข่าวสาร &#128204;</title>
@@ -17,6 +18,12 @@
         margin-top: 10px;   
     }
 </style>
+<script>
+    function loginB4Create()
+    {
+        var win = alert("โปรเข้าสู่ระบบก่อนทำการสร้างกระทู้");
+    }
+</script>
 
 
 <!--Thread list-->
@@ -44,7 +51,11 @@
     <div style="margin-left: 12%;margin-right: 12%; margin-top: 3em; margin-bottom: 5em;">
     {% if not thread_list %}
         <b class="p5">ไม่พบข่าวสาร</b>
-        <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+        {% if not request.user.is_authenticated %}
+            <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;" onclick="loginB4Create()"><b class="p6"><u>คลิกที่นี่</u></b></a>
+        {% else %}
+            <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+        {% endif %}
         <b class="p5">เพื่อสร้างข่าวสาร</b>
         <div class="line2"></div>
         <br>

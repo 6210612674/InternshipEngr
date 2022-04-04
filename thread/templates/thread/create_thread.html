@@ -2,6 +2,8 @@
 {% block body%}
 <title>สร้างกระทู้</title>
 
+
+
 <form method="POST" action="{% url 'thread:create_thread' %}" enctype="multipart/form-data">
     {% csrf_token %}
     <h1 style="text-align: center; margin: 50px;"><b>สร้างกระทู้</b></h1>
@@ -19,15 +21,26 @@
                 </div>
                 
                 <div class="form-group" style="width: 25em; margin-left: 5em;">
+                    <label><b class="p5">คำอธิบายกระทู้</b></label>
+                    <p><input type="text" name="desc" class="form-control" maxlength="300" placeholder="Enter thread header" required/></input></p>
+                    <br>
+                </div>
+                <div class="form-group" style="width: 25em; margin-left: 5em;">
                         <label><b class="p5">รูปภาพ</b></label>
                         <div>
-                            <input type="file" name="icon_d" class="form-control"required/>
+                            <input type="file" id="fileupload" name="fileupload" class="form-control"/>
+                        </div>
+                        <div id="display_image" class="profile-images-card" style="display: none;">
+                            <div class="profile-images">
+                                <img src="images/profile.png" id="upload-img" style="width: 600px;height: 600px;">
+                            </div>
                         </div>
                     </div>
                 <div style="margin-left: 5em; margin-top: 30px;">
                     <input type="submit" value ="ยืนยัน" class="btn button1 p5"></input>
+                    
                 </div>
-                <br>
+                <br><br><br><br><br><br><br><br><br><br>                <br>
             </div>
                 <br>
                 <br>
@@ -38,4 +51,17 @@
     </div>
 </form>
 {{ form.media }}
+
+<script src="js/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#fileupload").change(function(event) {
+			var x = URL.createObjectURL(event.target.files[0]);
+			$("#upload-img").attr("src",x);
+            var display_image = document.getElementById("display_image");
+            display_image.style.display='block';
+			console.log(event);
+		});
+	})
+</script>
 {% endblock %}

@@ -46,7 +46,8 @@ def create_thread(request):
     if request.method == "POST":
         header = request.POST["header"]
         content = MarkdownForm(request.POST)
-
+        icon = request.FILES['fileupload']
+        desc = request.POST["desc"]
         if Thread.objects.filter(header=header).first():
             return render(request, 'thread/create_thread.html', {
                 "fail_header": "This header is already taken",
@@ -54,11 +55,14 @@ def create_thread(request):
             })
         if content.is_valid():
             content = content.cleaned_data['Content']
-            new_thread = Thread.objects.create(header=header, content=content, author=request.user,
+            new_thread = Thread.objects.create(header=header, content=content, icon=icon, author=request.user, desc=desc,
                                                date=datetime.datetime.now(datetime.timezone.utc))
             new_thread.save()
 
-            return HttpResponseRedirect(reverse("thread:thread_page"))
+            if Account.objects.get(user=request.user).type == "Professor":
+                return HttpResponseRedirect(reverse("thread:thread_page"))
+            else:
+                return HttpResponseRedirect(reverse("thread:annoucement_page"))
     else:
         content = MarkdownForm()
     return render(request, 'thread/create_thread.html', {'form': content})
@@ -99,9 +103,11 @@ def update_thread(request, thread_id):
         if form.is_valid():
             header = form.cleaned_data['header']
             content = form.cleaned_data['content']
+            desc = request.POST["desc"]
             # Update  This Thread
             this_thread.header = header
             this_thread.content = content
+            this_thread.desc = desc
             this_thread.save()
 
             return HttpResponseRedirect(reverse("thread:thread", args=(this_thread.id,)))

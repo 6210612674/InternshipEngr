@@ -8,11 +8,27 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
+from thread.models import *
 # Create your views here.
 
 
 def index(request):
-    return render(request, "account/index.html")
+    thread_list = []
+    annoucement_list = []
+    num_thread = 0
+    num_annoucement = 0
+    for n in Thread.objects.all():
+        account = Account.objects.get(user=n.author)
+        if account.type == "Professor" and num_thread < 3:
+            thread_list.append(n)
+            num_thread += 1
+        if account.type == "Company" and num_annoucement < 4:
+            annoucement_list.append(n)
+            num_annoucement += 1
+        if num_thread == 3 and num_annoucement == 4:
+            break
+
+    return render(request, "account/index.html", {'annoucement_list': annoucement_list, 'thread_list': thread_list})
 
 
 def register_page(request):
@@ -64,6 +80,10 @@ def register(request):
         address = request.POST["address"]
         year = request.POST["year"]
         major = request.POST["major"]
+
+        icon = "12312321"
+        #icon = request.FILES['fileupload']
+
         # Check username is already taken
         if User.objects.filter(username=username).first():
             return render(request, "account/register.html", {"fail_username": "This username is already taken"})
@@ -89,6 +109,6 @@ def register(request):
         add_user.save()
 
         Account.objects.create(user=add_user, tel=tel, type=type,
-                               address=address, year=year, major=major)
+                               address=address, year=year, major=major, icon=icon)
         return render(request, "account/index.html")
     return render(request, "account/register.html")

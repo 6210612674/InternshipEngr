@@ -1,8 +1,12 @@
 
 # Django #
 *.log
+*.jpeg
+*.png
+*.ico
 *.pot
 *.pyc
+account/templates/account/register.html
 __pycache__
 db.sqlite3
 media

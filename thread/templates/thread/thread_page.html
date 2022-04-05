@@ -62,7 +62,7 @@
     {% else %}
         {% for thread in thread_list %}
         <div style="margin-bottom: 5em;">
-            <img class="img1" src="/static/images/avatar.png" style="float:left; margin-right: 1.5em;">
+            <img class="img1" src="/{{thread.icon}}" style="float:left; margin-right: 1.5em;">
             <p class="p7">
                 {{thread.author.username}} &#8986; {{thread.date}} 
             </p>

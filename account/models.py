@@ -18,6 +18,8 @@ class Account(models.Model):
     receive_box = models.ManyToManyField(
         Transmit_file, related_name='%(class)s_receive_box', blank=True)
     current_state = models.IntegerField(default=0)
+    icon = models.ImageField(
+        upload_to='static/account/icon', blank=True, null=True)
 
     def __str__(self):
         return f"user:{self.user.username} type:{self.type} name:{self.user.first_name} {self.user.last_name}"

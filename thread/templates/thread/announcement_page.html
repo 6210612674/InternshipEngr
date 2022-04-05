@@ -61,7 +61,7 @@
     {% else %}
         {% for annoucement in annoucement_list %}
         <div style="margin-bottom: 5em;">
-            <img class="img1" src="/static/images/avatar.png" style="float:left; margin-right: 1.5em;">
+            <img class="img1" src="/{{annoucement.icon}}" style="float:left; margin-right: 1.5em;">
             <p class="p7">
                 {{annoucement.author.username}} &#8986; {{annoucement.date}} 
             </p>

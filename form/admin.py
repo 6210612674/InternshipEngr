@@ -4,7 +4,7 @@ from .models import *
 
 
 class Init_form_admin(admin.ModelAdmin):
-    list_display = ("file", "author", "date")
+    list_display = ("name", "content", "desc", "file", "author", "date",)
 
 
 # Register your models here.

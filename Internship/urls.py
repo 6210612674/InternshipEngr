@@ -22,5 +22,7 @@ urlpatterns = [
     #path('account/', include("account.urls")),
     path('', include("account.urls")),
     path('thread/', include("thread.urls")),
+    path('form/', include("form.urls")),
+    path('transmit/', include("transmit.urls")),
     url(r'^markdownx/', include('markdownx.urls')),
 ]

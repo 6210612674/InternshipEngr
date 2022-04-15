@@ -1,0 +1,57 @@
+{% block body%}
+<title>สร้าง initform</title>
+
+
+
+<form method="POST" action="{% url 'form:create_initform' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 style="text-align: center; margin: 50px;"><b>สร้าง Init Form</b></h1>
+
+    <div class="container" >
+        <div class="row">
+            {%if fail_header%} 
+                <div style="color: tomato; margin-left: 5em;"><p class="p5"><b>{{fail_name}}</b></p></div><br> 
+            {%endif%}
+            <div class="col" style="margin-top: 25px;">
+                <div class="form-group" style="width: 25em; margin-left: 5em;">
+                    <label><b class="p5">ชื่อ form</b></label>
+                    <p><input type="text" name="name" class="form-control" maxlength="120" placeholder="Enter form name" required/></input></p>
+                    <br>
+                </div>
+                
+                <div class="form-group" style="width: 25em; margin-left: 5em;">
+                    <label><b class="p5">คำอธิบาย form</b></label>
+                    <p><input type="text" name="desc" class="form-control" maxlength="300" placeholder="Enter form desc" required/></input></p>
+                    <br>
+                </div>
+                <div class="form-group" style="width: 25em; margin-left: 5em;">
+                    <label><b class="p5">file</b></label>
+                    <p><input class="form-control me-2" type="file"  name="form_file" required></p>
+                    <br>
+                </div>
+
+                <div class="col" style="margin-left: 5em; margin-top:25px;"> 
+                    <p class="p5"><b>เนื้อหา:</b>{{ content.Content }}</p>
+                </div>
+                <div style="margin-left: 5em; margin-top: 30px;">
+                    <input type="submit" value ="ยืนยัน" class="btn button1 p5"></input>
+                    
+                </div>
+        </div>
+    </div>
+</form>
+{{ form.media }}
+
+<script src="js/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#fileupload").change(function(event) {
+			var x = URL.createObjectURL(event.target.files[0]);
+			$("#upload-img").attr("src",x);
+            var display_image = document.getElementById("display_image");
+            display_image.style.display='block';
+			console.log(event);
+		});
+	})
+</script>
+{% endblock %}

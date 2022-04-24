@@ -1,13 +1,14 @@
+{% extends "form/layout.html"%}
 {% block body%}
-<title>สร้าง initform</title>
+<title>สร้างฟอร์ม</title>
 
 
 
 <form method="POST" action="{% url 'form:create_initform' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    <h1 style="text-align: center; margin: 50px;"><b>สร้าง Init Form</b></h1>
+    <h1 style="text-align: center; margin: 50px;"><b>สร้างฟอร์มเริ่มต้น</b></h1>
 
-    <div class="container" >
+    <div class="container">
         <div class="row">
             {%if fail_header%} 
                 <div style="color: tomato; margin-left: 5em;"><p class="p5"><b>{{fail_name}}</b></p></div><br> 
@@ -30,14 +31,15 @@
                     <br>
                 </div>
 
-                <div class="col" style="margin-left: 5em; margin-top:25px;"> 
-                    <p class="p5"><b>เนื้อหา:</b>{{ content.Content }}</p>
-                </div>
                 <div style="margin-left: 5em; margin-top: 30px;">
                     <input type="submit" value ="ยืนยัน" class="btn button1 p5"></input>
                     
                 </div>
-        </div>
+                <br><br><br><br><br>
+            </div>
+            <div class="col" style="margin-left: 5em; margin-top:25px;">
+                <p class="p5"><b>เนื้อหา:</b>{{ content.Content }}</p>
+            </div>
     </div>
 </form>
 {{ form.media }}

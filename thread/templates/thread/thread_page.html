@@ -21,7 +21,7 @@
 <script>
     function loginB4Create()
     {
-        var win = alert("โปรเข้าสู่ระบบก่อนทำการสร้างกระทู้");
+        var win = alert("โปรดเข้าสู่ระบบก่อนทำการสร้างกระทู้");
     }
 </script>
 
@@ -51,27 +51,30 @@
     <div style="margin-left: 12%;margin-right: 12%; margin-top: 3em; margin-bottom: 5em;">
     {% if not thread_list %}
         <b class="p5">ไม่พบข่าวสาร</b>
-        {% if not request.user.is_authenticated %}
+        {% if not request.user.is_authenticated%}
             <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;" onclick="loginB4Create()"><b class="p6"><u>คลิกที่นี่</u></b></a>
-        {% else %}
-            <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+            <b class="p5">เพื่อสร้างข่าวสาร</b>
         {% endif %}
-        <b class="p5">เพื่อสร้างข่าวสาร</b>
+        {% if request.user.type == "Professor" %}
+            <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+            <b class="p5">เพื่อสร้างข่าวสาร</b>
+        {% endif %}
         <div class="line2"></div>
         <br>
     {% else %}
+        <br>
         {% for thread in thread_list %}
-        <div style="margin-bottom: 5em;">
-            <img class="img1" src="/{{thread.icon}}" style="float:left; margin-right: 1.5em;">
-            <p class="p7">
+        <div style="margin-bottom: 8em;">
+            <img class="img2" src="/{{thread.icon}}" style="float:left; margin-right: 1.5em;">
+            <p class="p7" style="padding-top: 5px;">
                 {{thread.author.username}} &#8986; {{thread.date}} 
             </p>
             <a href = "{% url 'thread:thread' thread.id %}" style="text-decoration: none;">
-            <b class="p8" style="float: left;">{{thread.header}}</b></a>
+            <b class="p12" style="float: left;">{{thread.header}}</b></a>
         </div>
         <hr>
-        <br>
         {% endfor %}
     {% endif %}
+    <br><br><br><br><br><br>
     </div>
 {% endblock %}

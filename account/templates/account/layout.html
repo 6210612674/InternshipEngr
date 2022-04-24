@@ -128,7 +128,7 @@
         <div class="line"></div>
         <a href="#"><p>ติดตามนักศึกษา</p></a>
         <div class="line"></div>
-        <a href="#"><p>จัดการฟอร์ม</p></a>
+        <a href="{% url 'form:index' %}"><p>จัดการฟอร์ม</p></a>
         <div class="line"></div>
         <a href="{% url 'thread:create_thread' %}"><p>สร้างกระทู้</p></a>
         <div class="line"></div>
@@ -147,10 +147,4 @@
     {% block body %}
     {% endblock %}
 </body>
-    <!-- Footer -->
-    <footer class="footer ">
-        <div class="text-center p-4" style="background-color: #d2533aef;">
-            <a class="text-reset fw-bold" href="#">About</a>
-        </div>
-    </footer>
 </html>

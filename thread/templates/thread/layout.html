@@ -60,7 +60,7 @@
         return answer;
     }
 </script>
-<body style="margin-bottom: 60em;">
+<body style="margin-bottom: 60px;">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
         <a class="navbar-brand" href="#"></a>
@@ -116,7 +116,7 @@
         <div class="line"></div>
         <a href="#"><p>ติดตามนักศึกษา</p></a>
         <div class="line"></div>
-        <a href="#"><p>จัดการฟอร์ม</p></a>
+        <a href="{% url 'form:index' %}"><p>จัดการฟอร์ม</p></a>
         <div class="line"></div>
         <a href="{% url 'thread:create_thread' %}"><p>สร้างกระทู้</p></a>
         <div class="line"></div>
@@ -126,17 +126,9 @@
         <div class="line"></div>
     </div>
     <br>
-    <br>
     
     {% block body %}
     {% endblock %}
 
 </body>
-
-    <!-- Footer -->
-    <footer class="footer " style="margin-bottom: 0em;">
-        <div class="text-center p-4" style="background-color: #d2533aef;">
-            <a class="text-reset fw-bold" href="#">About</a>
-        </div>
-    </footer>
 </html>

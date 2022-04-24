@@ -252,6 +252,7 @@ a {
   background-color: #c0d8c0fa;
   background-image: url("/static/images/ENGR.png");
   background-position: right;
+  background-repeat: no-repeat;
 }
 
 .div4 {
@@ -265,10 +266,13 @@ a {
 }
 .div5 {
   position: absolute;
-  margin-top: -3px;
   width: 100%;
-  height: 260%;
-  background-color: #ffffffec;
+  margin-top: -3px;
+  padding-bottom: 100px;
+}
+
+.div6{
+  width: 310px;
 }
 
 .mySlides {
@@ -300,6 +304,8 @@ a {
   grid-area: img4;
   width: 300px;
   height: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .img5 {
@@ -311,12 +317,13 @@ a {
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-template-areas: "img4 img4 img4 img4";
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-areas: 
+  "img4 img4 img4 img4";
   gap: 10px;
   padding: 10px;
-  justify-content: space-around;
-  margin-left: 40px;
+  margin-left: 115px;
+  margin-top: 10px;
 }
 
 .grid-container > div {
@@ -326,6 +333,11 @@ a {
   text-align: center;
   padding: 5px 0;
   font-size: 20px;
+}
+
+.responsive {
+  max-width: 100%;
+  height: auto;
 }
 
 .mytopstyle {

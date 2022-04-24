@@ -122,6 +122,16 @@ p {
   color: black;
 }
 
+.p12 {
+  font-size: 22px;
+  font-family: "Athiti", sans-serif;
+  color: rgb(66, 66, 66);
+}
+
+.p12:hover {
+  color: #724141;
+}
+
 a {
   font-family: "Athiti", sans-serif;
   text-decoration: none !important;
@@ -143,6 +153,11 @@ b {
   margin-top: 10px;
 }
 
+.img2 {
+  width: 190px;
+  height: 110px;
+  margin-top: 10px;
+}
 .mytopstyle {
   top: 6em;
 }

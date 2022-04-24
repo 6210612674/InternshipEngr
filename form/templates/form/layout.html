@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'form/css/style.css' %}">
+<script src="{% static 'account/css/styles.js' %}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Athiti:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<!-- StyleSheet load image -->
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet"
+    type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<meta charset=utf-8 />
+<style>
+    .button1 {
+        background-color: #DD4A48;
+        width: 150px;
+        color: white;
+        border: 2px solid #DD4A48;
+        border-radius: 10px;
+    }
+
+    .button1:hover {
+        background-color: #724141;
+        color: white;
+        border: 2px solid #724141;
+    }
+
+    .button2 {
+        background-color: #DD4A48;
+        width: 120px;
+        color: white;
+        border: 2px solid #DD4A48;
+        border-radius: 10px;
+    }
+
+    .button2:hover {
+        background-color: #724141;
+        color: white;
+        border: 2px solid #724141;
+    }
+</style>
+<script>
+    function logout() {
+        var answer = window.confirm("ยืนยันการออกจากระบบ");
+        return answer;
+    }
+</script>
+
+<body style="margin-bottom: 60px;">
+    <!-- nav bar -->
+    <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
+        <a class="navbar-brand" href="#"></a>
+        <div class="d-flex flex-row-reverse">
+            {% if not request.user.is_authenticated %}
+            <a class="p-2" href="{% url 'account:index' %}"
+                style="text-decoration: none; margin-right: 5px; margin-top: -1px;">
+                <p class="p1"><u>เข้าสู่ระบบ</u></p>
+            </a>
+            {% endif %}
+            <a class="p-2" href="#" style="text-decoration: none; margin-right: 10px; margin-top: -1px;">
+                <p class="p1">ติดต่อ</p>
+            </a>
+            {% if request.user.is_authenticated %}
+            <div class="p-2 ">
+                <p class="p1">สวัสดี, {{request.user.username}}</p>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- menu bar -->
+    <section class="menubar">
+        <div id="nav" class="d-flex flex-row-reverse menubar shadow" style="padding-right: 20px;">
+            {% if request.user.is_authenticated %}
+            <a class="p-2 " href="#">
+                <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
+            </a>
+            <a class="p-2 " href="#">
+                <p class="p2">&#128276;</p>
+            </a>
+            {% endif %}
+            <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
+                <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
+            </a>
+            <a class="p-2 " href="{% url 'thread:thread_page' %}">
+                <p class="p2">&#128204; ข่าวสาร</p>
+            </a>
+            <a class="p-2 " href="{% url 'account:index' %}">
+                <p class="p2">&#127969; หน้าแรก</p>
+            </a>
+        </div>
+        </nav>
+        </div>
+
+        <!-- side bar menu -->
+        <div id="mySidenav" class="sidenav ">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">
+                <p>โปรไฟล์</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ติดตามนักศึกษา</p>
+            </a>
+            <div class="line"></div>
+            <a href="{% url 'form:index' %}">
+                <p>จัดการฟอร์ม</p>
+            </a>
+            <div class="line"></div>
+            <a href="{% url 'thread:create_thread' %}">
+                <p>สร้างกระทู้</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ตรวจสอบกระทู้</p>
+            </a>
+            <div class="line"></div>
+            <a href="{% url 'account:logout' %}" onclick="logout()">
+                <p>ออกจากระบบ</p>
+            </a>
+            <div class="line"></div>
+        </div>
+        <br>
+
+        {% block body %}
+        {% endblock %}
+
+</body>
+
+</html>

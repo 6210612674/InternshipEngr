@@ -20,7 +20,7 @@
 <script>
     function loginB4Create()
     {
-        var win = alert("โปรเข้าสู่ระบบก่อนทำการสร้างกระทู้");
+        var win = alert("โปรดเข้าสู่ระบบก่อนทำการสร้างกระทู้");
     }
     
 </script>
@@ -52,25 +52,29 @@
         <b class="p5">ไม่พบข่าวประชาสัมพันธ์</b>
         {% if not request.user.is_authenticated %}
             <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;" onclick="loginB4Create()"><b class="p6"><u>คลิกที่นี่</u></b></a>
-        {% else %}
-            <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+            <b class="p5">เพื่อสร้างข่าวประชาสัมพันธ์</b>
         {% endif %}
-        <b class="p5">เพื่อสร้างข่าวประชาสัมพันธ์</b>
+        {% if request.user.type == "Company" %}
+            <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
+            <b class="p5">เพื่อสร้างข่าวประชาสัมพันธ์</b>
+        {% endif %}
+        {{endfor}}
         <div class="line2"></div>
         <br>
     {% else %}
+        <br>
         {% for annoucement in annoucement_list %}
-        <div style="margin-bottom: 5em;">
-            <img class="img1" src="/{{annoucement.icon}}" style="float:left; margin-right: 1.5em;">
-            <p class="p7">
+        <div style="margin-bottom: 8em;">
+            <img class="img2" src="/{{annoucement.icon}}" style="float:left; margin-right: 1.5em;">
+            <p class="p7" style="padding-top: 5px;">
                 {{annoucement.author.username}} &#8986; {{annoucement.date}} 
             </p>
             <a href = "{% url 'thread:annoucement' annoucement.id %}" style="text-decoration: none;">
-            <b class="p8" style="float: left;">{{annoucement.header}}</b></a>
+            <b class="p12" style="float: left;">{{annoucement.header}}</b></a>
         </div>
         <hr>
-        <br>
         {% endfor %}
     {% endif %}
+    <br><br><br><br><br><br>
     </div>
 {% endblock %}

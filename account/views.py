@@ -19,7 +19,7 @@ def index(request):
     num_annoucement = 0
     for n in Thread.objects.all():
         account = Account.objects.get(user=n.author)
-        if account.type == "Professor" and num_thread < 3:
+        if account.type == "Professor" and num_thread < 4:
             thread_list.append(n)
             num_thread += 1
         if account.type == "Company" and num_annoucement < 4:

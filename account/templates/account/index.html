@@ -1,5 +1,7 @@
 {% extends "account/layout.html" %} 
 {% block body %}
+<!DOCTYPE html>
+<html>
 <title>หน้าแรก &#127969;</title>
 <style>
     .button1 {
@@ -21,7 +23,7 @@
         height: 50px;  
         margin-left: 25px;
     }
-    
+
 </style>
 
 {% if not request.user.is_authenticated %}
@@ -96,24 +98,29 @@
     </div>
 {% endif %}
 
-    <div class="div5" >
-        <br>
-        <h1 style="margin-left: 125px; margin-top: 25px;"><b>ข่าวสาร</b></h1>
+<div class="div5" style=" background-color: #ffffffec;">
+        <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวสาร</b></h1>
         <div class="line3"></div>
-        <a href="{% url 'thread:thread_page' %}" style="margin-top: 20px;margin-left: 125px; font-size: 16px;"><u>ข่าวสารทั้งหมด</u></a>
+        <a href="{% url 'thread:thread_page' %}" style="margin-left: 125px; font-size: 16px;"><u>ข่าวสารทั้งหมด</u></a>
         
-        {% for x in thread_list%}
-        <a href="{% url 'thread:thread' x.id %}">
-        <div><img class="img5" src="{{x.icon}}">
-            <span style="margin: 10px;">
-                <b style="font-size: 18px;">{{x.header}}   desc:  {{x.desc}}</b>
-            </span>
+        <div class="grid-container">
+            {% for x in thread_list%}
+                <a href="{% url 'thread:thread' x.id %}">
+                    <div>
+                        <img class="img4 responsive" src="{{x.icon}}">
+                        <div class="div6 responsive" >
+                            <h2>
+                                {{x.header}}
+                            </h2>
+                            <p class="disable-links">
+                                {{x.desc}}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
-        </a>
-        {% endfor %}
 
-         
-      
         <div class="line2"></div>
 
         <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวประชาสัมพันธ์</b></h1>
@@ -121,24 +128,26 @@
         <div class="line3"></div>
         <a href="{% url 'thread:annoucement_page'%}" style="padding-top: 100px;margin-left: 125px; font-size: 16px;"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></a>
         <br>
+
         <div class="grid-container">
             {% for x in annoucement_list%}
             <a href="{% url 'thread:thread' x.id %}">
-            <div><img class="img4" src="{{x.icon}}">
-                <p style="margin: 20px;">
-                    {{x.header}}  desc:  {{x.desc}}
-                </p>
+            <div>
+                <img class="img4 responsive" src="{{x.icon}}">
+                <div class="div6 responsive" >
+                    <h2>
+                        {{x.header}}
+                    </h2>
+                    <p class="disable-links">
+                        {{x.desc}}
+                    </p>
+                </div>
             </div>
             </a>
             {% endfor %}
-
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    </div>
+</div>
+    
 
     
 <!-- slideshow -->

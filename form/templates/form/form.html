@@ -1,5 +1,6 @@
+{% extends "form/layout.html"%}
 {% load markdown_tag %}
-
+{% block body%}
     <title>{{form.name}}</title>
 
     <script language="javascript">
@@ -54,3 +55,6 @@
         <br>
         {% endif %}
     </div>
+    <br><br><br>
+
+{% endblock %}

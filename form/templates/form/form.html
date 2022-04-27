@@ -44,17 +44,19 @@
             <a href ="{% url 'form:delete_form' form.id %}" onclick="return confirm_delete_form()" style="float: right; margin-left: 0.5em; color: black;"><p >&#128680; ลบ</p></a>
             <a href = "{% url 'form:update_form' form.id %}" style="float: right; margin-left: 0.5em; color: black;"><p>แก้ไข</p></a>
         {% endif %}
-        
         </span>
-        <br>
-        <br>
-        <a href="{% url 'form:download_file' form.id %}" style="margin-top: 32px; margin-left: 20px;"><b class="p9"><u>load</u></b></a>
-        <br>
-        <br>
-        <h4><p>{{form.content | convert_markdown | safe }}</p></h4>
+        <br><br><br><br>
+        <div>
+            <h4>
+                <p>{{form.content | convert_markdown | safe }}</p>
+            </h4>
+            <a href="{% url 'form:download_file' form.id %}" style="float: left; font-size: 23px;">
+                <b>&#128073; <u class="p6">download</u></b>
+            </a>
+        </div>
         <br>
         {% endif %}
     </div>
-    <br><br><br>
+    <br><br><br><br>
 
 {% endblock %}

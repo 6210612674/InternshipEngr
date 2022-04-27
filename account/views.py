@@ -112,3 +112,7 @@ def register(request):
                                address=address, year=year, major=major, icon=icon)
         return render(request, "account/index.html")
     return render(request, "account/register.html")
+
+
+def profile(request):
+    return render(request, "account/profile.html")

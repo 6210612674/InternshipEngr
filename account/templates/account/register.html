@@ -24,29 +24,8 @@
 <!--https://jsfiddle.net/7d85n6bc/-->
 
 <script>
-    function verifyPassword() {  
-        var pw = document.getElementById("pswd").value;  
-        //check empty password field  
-        if(pw == "") {  
-           document.getElementById("message").innerHTML = "**Fill the password please!";  
-           return false;  
-        }  
-         
-       //minimum password length validation  
-        if(pw.length < 8) {  
-           document.getElementById("message").innerHTML = "**Password length must be atleast 8 characters";  
-           return false;  
-        }  
-        
-      //maximum length of password validation  
-        if(pw.length > 15) {  
-           document.getElementById("message").innerHTML = "**Password length must not exceed 15 characters";  
-           return false;  
-        } else {  
-           alert("Password is correct");  
-        }  
 
-      }  
+     
       function matchPassword() {  
         var pw1 = document.getElementById("password1");  
         var pw2 = document.getElementById("password2");  
@@ -246,7 +225,7 @@
                     <!-- Password -->
                     <div class="input-group col-lg-6 mb-4">
                         
-                        <form onsubmit ="return verifyPassword()">  
+                      
                         <input id="password1" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md" required >
                         <span id = "message" style="color:red"> </span> <br><br>
                         </form>
@@ -281,7 +260,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <a href="{% url 'account:login' %}"><button type="submit" class="btn btn-primary btn-lg btn-block" >Register</button></a>
+                    <a href="{% url 'account:index' %}"><button type="submit" class="btn btn-primary btn-lg btn-block" >Register</button></a>
                    
 
                     <!-- Already Registered -->

@@ -1,4 +1,6 @@
+from concurrent.futures import process
 from tokenize import String
+from django.dispatch import receiver
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template.defaultfilters import title
@@ -18,6 +20,17 @@ from django.core.files.storage import default_storage
 def index(request):
     form = Init_form.objects.all()
     return render(request, "form/index.html", {'form': form})
+
+
+def generate_filename(file):
+
+    filetype = file.name.split(".")[-1]
+    time_now = datetime.datetime.now(datetime.timezone.utc)
+    new_name = time_now.strftime(
+        "%d%m%y, %H%M%S") + "_" + str(len(Transmit_file.objects.all())) + "." + filetype
+    file.name = new_name
+
+    return file
 
 
 def create_initform(request):
@@ -123,7 +136,9 @@ def internship(request):
 
     if not request.user.is_authenticated:
         messages.warning(request, "Login First to proceed")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect(reverse("account:index"))
+
+    receiver = "Staff"
 
     account = Account.objects.get(user=request.user)
     step = account.current_state
@@ -134,15 +149,23 @@ def internship(request):
         # student upload file then do
         if request.method == "POST":
             # need to create post to upload feedback
-            pass
+            file = request.FILES['form_file']
+            processed_file = generate_filename(file)
+            new_form = Transmit_file.objects.create(
+                file=processed_file, sender=account.user.username, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
+            new_form.save()
 
             account.current_state += 1
+            account.sent_box.add(new_form)
             account.save()
 
             # notify staff to sent file
+            for staff in Account.objects.filter(type=receiver):
+                staff.receive_box.add(new_form)
+                staff.save()
 
             # recursive to proceed next step
-            HttpResponseRedirect(reverse("form:internship"))
+            return HttpResponseRedirect(reverse("form:internship"))
 
         return render(request, "form/internship.html", {
             "step": step,
@@ -156,19 +179,29 @@ def internship(request):
 
         # student upload file then do
         if request.method == "POST":
+
             # need to create post to upload feedback
-            pass
+            file = request.FILES['form_file']
+            processed_file = generate_filename(file)
+            new_form = Transmit_file.objects.create(
+                file=processed_file, sender=account.user.username, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
+            new_form.save()
 
             account.current_state += 1
+            account.sent_box.add(new_form)
             account.save()
+
             # notify staff to sent file
+            for staff in Account.objects.filter(type=receiver):
+                staff.receive_box.add(new_form)
+                staff.save()
 
             # recursive to proceed next step
-            HttpResponseRedirect(reverse("form:internship"))
+            return HttpResponseRedirect(reverse("form:internship"))
 
         return render(request, "form/internship.html", {
             "step": step,
-            "forms": received_file
+            "forms": received_file.all()
         })
 
     # uploaded all response wait for final form
@@ -181,9 +214,33 @@ def internship(request):
 
         return render(request, "form/internship.html", {
             "step": step,
-            "forms": received_file
+            "forms": received_file.all()
         })
 
     return render(request, "form/internship.html", {
         "step": step
     })
+
+
+def restart_internship(request):
+
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login First to proceed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    account = Account.objects.get(user=request.user)
+
+    account.current_state = 0
+
+    for o in account.sent_box.all():
+        o.delete()
+    account.sent_box.clear()
+
+    account.read_box.clear()
+
+    for o in account.receive_box.all():
+        o.delete()
+    account.receive_box.clear()
+    account.save()
+
+    return HttpResponseRedirect(reverse("form:internship"))

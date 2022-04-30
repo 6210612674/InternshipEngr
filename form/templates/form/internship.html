@@ -15,8 +15,48 @@
 
 <body>
     {% if step == 0 %}
+
     <h2>This is step #{{step}}</h2>
     <a href="{{init_form.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+
+    <form method="POST" action="{% url 'form:internship' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label><b class="p5">file</b></label>
+        <p><input class="form-control me-2" type="file" name="form_file" required></p>
+        <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
+    </form>
+
+    {% elif step == 1 %}
+
+    <h2>This is step #{{step}}</h2>
+    {% if not forms %}
+    <h1>Processing your request</h1>
+    {% else %}
+    {% for form in forms %}
+    <h2>{{forloop.counter}}</h2>
+    <a href="{{form.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+    {% endfor %}
+
+    <form method="POST" action="{% url 'form:internship' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label><b class="p5">file</b></label>
+        <p><input class="form-control me-2" type="file" name="form_file" required></p>
+        <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
+    </form>
+    {% endif %}
+
+    {% elif step == 2 %}
+    <h2>This is step #{{step}}</h2>
+
+    {% if not forms %}
+    <h1>Processing your request</h1>
+    {% else %}
+    {% for form in forms %}
+    <h2>{{forloop.counter}}</h2>
+    <a href="{{form.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+    {% endfor %}
+
+    {% endif %}
     {% endif %}
 
 </body>

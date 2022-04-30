@@ -2,15 +2,19 @@
 {% load tag %}
 {% block body%}
 <title>จัดการฟอร์ม</title>
+
 <head>
     <style>
-        h1,h2,h3{
-        font-family: "Athiti", sans-serif;
+        h1,
+        h2,
+        h3 {
+            font-family: "Athiti", sans-serif;
         }
     </style>
 </head>
+
 <body>
-    
+
     <table style="margin-left: 25%; border: 1px solid #dddddd;">
         <tr>
             <th>
@@ -19,25 +23,26 @@
             <th></th>
             <th></th>
         </tr>
-       
+
         {% for x in form%}
-       
+
         <tr>
             <td style="border: 1px solid #dddddd;">
                 <p class="p9" style="margin: 10px;">{{ x|getfilename }}</p>
             </td>
             <td style="border: 1px solid #dddddd;">
-                <a href="{% url 'form:download_file' x.id %}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+                <a href="{{x.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
             </td>
             <td style="border: 1px solid #dddddd;">
-                <a href="{% url 'form:form' x.id %}" ><b class="p12" style="margin: 10px;"><u>open</u></b></a>
+                <a href="{% url 'form:form' x.id %}"><b class="p12" style="margin: 10px;"><u>open</u></b></a>
             </td>
         </tr>
         {% endfor %}
     </table>
     <br>
-    
-    <a href="{% url 'form:create_initform' %}" style="margin-left: 67%;"><b class="p9 btn button1">สร้างฟอร์มเริ่มต้น</b></a>
+
+    <a href="{% url 'form:create_initform' %}" style="margin-left: 67%;"><b
+            class="p9 btn button1">สร้างฟอร์มเริ่มต้น</b></a>
 </body>
 <br><br><br>
 

@@ -14,5 +14,5 @@ urlpatterns = [path("", views.index, name="index"),
                     views.delete_form, name="delete_form"),
                path("update_form/<int:form_id>",
                     views.update_form, name="update_form"),
-
+               path("internship/", views.internship, name="internship"),
                ]

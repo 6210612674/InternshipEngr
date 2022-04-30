@@ -14,6 +14,7 @@ account/migrations
 form/migrations
 thread/migrations
 transmit/migrations
+static/
 # Backup files # 
 *.bak 
 

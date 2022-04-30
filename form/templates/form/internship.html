@@ -1,0 +1,23 @@
+{% extends "form/layout.html"%}
+{% load tag %}
+{% block body%}
+<title>เอกสารการฝึกงาน {{step}}</title>
+
+<head>
+    <style>
+        h1,
+        h2,
+        h3 {
+            font-family: "Athiti", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    {% if step == 0 %}
+    <h2>This is step #{{step}}</h2>
+    <a href="{{init_form.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+    {% endif %}
+
+</body>
+{% endblock%}

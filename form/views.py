@@ -117,3 +117,73 @@ def update_form(request, form_id):
         "check_update": check_update,
         "form_update": content,
     })
+
+
+def internship(request):
+
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login First to proceed")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+    account = Account.objects.get(user=request.user)
+    step = account.current_state
+
+    if step == 0:
+        init_internship_form = Init_form.objects.get(name="init")
+
+        # student upload file then do
+        if request.method == "POST":
+            # need to create post to upload feedback
+            pass
+
+            account.current_state += 1
+            account.save()
+
+            # notify staff to sent file
+
+            # recursive to proceed next step
+            HttpResponseRedirect(reverse("form:internship"))
+
+        return render(request, "form/internship.html", {
+            "step": step,
+            "init_form": init_internship_form
+        })
+
+    elif step == 1:
+
+        # get form uploaded from staff
+        received_file = account.receive_box
+
+        # student upload file then do
+        if request.method == "POST":
+            # need to create post to upload feedback
+            pass
+
+            account.current_state += 1
+            account.save()
+            # notify staff to sent file
+
+            # recursive to proceed next step
+            HttpResponseRedirect(reverse("form:internship"))
+
+        return render(request, "form/internship.html", {
+            "step": step,
+            "forms": received_file
+        })
+
+    # uploaded all response wait for final form
+    elif step == 2:
+
+        # get form uploaded from staff
+        received_file = account.receive_box
+
+        # need reset button to reset step to 0
+
+        return render(request, "form/internship.html", {
+            "step": step,
+            "forms": received_file
+        })
+
+    return render(request, "form/internship.html", {
+        "step": step
+    })

@@ -152,7 +152,7 @@ def internship(request):
             file = request.FILES['form_file']
             processed_file = generate_filename(file)
             new_form = Transmit_file.objects.create(
-                file=processed_file, sender=account.user.username, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
+                file=processed_file, sender=account.type + " " + account.user.firstname, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
             new_form.save()
 
             account.current_state += 1
@@ -184,7 +184,7 @@ def internship(request):
             file = request.FILES['form_file']
             processed_file = generate_filename(file)
             new_form = Transmit_file.objects.create(
-                file=processed_file, sender=account.user.username, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
+                file=processed_file, sender=account.type + " " + account.user.firstname, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
             new_form.save()
 
             account.current_state += 1

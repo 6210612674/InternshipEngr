@@ -161,7 +161,7 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNoti()">&times;</a>
             {% for noti in data_notread%}
             <!-- Notification ยังไม่อ่าน -->
-            <a href="#">
+            <a href="{% url 'form:response_form' trans_id=noti.id %}">
                 <p>Receive a file from {{noti.sender}} @ {{noti.date}}</p>
             </a>
             <div class="line"></div>
@@ -170,7 +170,7 @@
 
             {% for noti in data_read%}
             <!-- Notification อ่านแล้ว -->
-            <a href="#">
+            <a href="{% url 'form:response_form' trans_id=noti.id %}">
                 <p>Receive a file from {{noti.sender}} @ {{noti.date}}</p>
             </a>
             <div class="line"></div>

@@ -21,6 +21,8 @@
 
     <form method="POST" action="{% url 'form:internship' %}" enctype="multipart/form-data">
         {% csrf_token %}
+        <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
+            class="form-control bg-white border-left-0 border-md">
         <label><b class="p5">file</b></label>
         <p><input class="form-control me-2" type="file" name="form_file" required></p>
         <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
@@ -39,6 +41,8 @@
 
     <form method="POST" action="{% url 'form:internship' %}" enctype="multipart/form-data">
         {% csrf_token %}
+        <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
+            class="form-control bg-white border-left-0 border-md">
         <label><b class="p5">file</b></label>
         <p><input class="form-control me-2" type="file" name="form_file" required></p>
         <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>

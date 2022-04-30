@@ -3,7 +3,7 @@ from .models import *
 
 
 class Transmit_file_admin(admin.ModelAdmin):
-    list_display = ("file", "sender", "receiver", "date")
+    list_display = ("id", "file", "desc", "sender", "receiver", "date")
 
 
 # Register your models here.

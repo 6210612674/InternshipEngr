@@ -138,7 +138,7 @@ def internship(request):
         messages.warning(request, "Login First to proceed")
         return HttpResponseRedirect(reverse("account:index"))
 
-    receiver = "Staff"
+    receiver = "admin"
 
     account = Account.objects.get(user=request.user)
     step = account.current_state
@@ -150,9 +150,10 @@ def internship(request):
         if request.method == "POST":
             # need to create post to upload feedback
             file = request.FILES['form_file']
+            desc = request.POST['desc']
             processed_file = generate_filename(file)
             new_form = Transmit_file.objects.create(
-                file=processed_file, sender=account.type + " " + account.user.firstname, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
+                file=processed_file, desc=desc, sender=account.user.username, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
             new_form.save()
 
             account.current_state += 1
@@ -160,7 +161,7 @@ def internship(request):
             account.save()
 
             # notify staff to sent file
-            for staff in Account.objects.filter(type=receiver):
+            for staff in Account.objects.filter(type="Staff"):
                 staff.receive_box.add(new_form)
                 staff.save()
 
@@ -182,9 +183,10 @@ def internship(request):
 
             # need to create post to upload feedback
             file = request.FILES['form_file']
+            desc = request.POST['desc']
             processed_file = generate_filename(file)
             new_form = Transmit_file.objects.create(
-                file=processed_file, sender=account.type + " " + account.user.firstname, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
+                file=processed_file, desc=desc, sender=account.user.username, receiver=receiver, date=datetime.datetime.now(datetime.timezone.utc))
             new_form.save()
 
             account.current_state += 1
@@ -192,7 +194,7 @@ def internship(request):
             account.save()
 
             # notify staff to sent file
-            for staff in Account.objects.filter(type=receiver):
+            for staff in Account.objects.filter(type="Staff"):
                 staff.receive_box.add(new_form)
                 staff.save()
 
@@ -244,3 +246,41 @@ def restart_internship(request):
     account.save()
 
     return HttpResponseRedirect(reverse("form:internship"))
+
+
+def response_form(request, trans_id):
+
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login First to proceed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    account = Account.objects.get(user=request.user)
+
+    transmit_file = Transmit_file.objects.get(id=trans_id)
+
+    receiver_acc = Account.objects.get(
+        user=User.objects.get(username=transmit_file.sender))
+
+    if request.method == "POST":
+        # need to create post to upload feedback
+        file = request.FILES['form_file']
+        desc = request.POST['desc']
+        processed_file = generate_filename(file)
+        new_form = Transmit_file.objects.create(
+            file=processed_file, desc=desc, sender=account.user.username, receiver=receiver_acc.user.username, date=datetime.datetime.now(datetime.timezone.utc))
+        new_form.save()
+
+        account.sent_box.add(new_form)
+        account.save()
+
+        receiver_acc.receive_box.add(new_form)
+        receiver_acc.save()
+
+        return render(request, "form/response.html", {
+            "done": 1
+        })
+
+    return render(request, "form/response.html", {
+        "this_file": transmit_file,
+        "done": 0
+    })

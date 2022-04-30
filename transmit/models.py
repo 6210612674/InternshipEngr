@@ -5,6 +5,7 @@ from Internship.settings import FORM_FILE_URL
 
 class Transmit_file(models.Model):
     file = models.FileField(blank=True, upload_to=FORM_FILE_URL)
+    desc = models.CharField(max_length=300, blank=True, null=True)
     sender = models.CharField(max_length=50)
     receiver = models.CharField(max_length=50)
     date = models.DateTimeField()

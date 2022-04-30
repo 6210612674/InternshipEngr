@@ -15,7 +15,8 @@ urlpatterns = [path("", views.index, name="index"),
                path("update_form/<int:form_id>",
                     views.update_form, name="update_form"),
                path("internship/", views.internship, name="internship"),
-
                path("re_internship/", views.restart_internship,
                     name="re_internship"),
+               path("response_form/<int:trans_id>",
+                    views.response_form, name="response_form"),
                ]

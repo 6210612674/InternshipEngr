@@ -1,5 +1,5 @@
 import re
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -61,7 +61,7 @@ def login_page(request):
 def logout(request):
     auth_logout(request)
     messages.warning(request, "Logged out")
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect("account:index")
 
 
 def login(request):
@@ -129,9 +129,42 @@ def register(request):
 
         Account.objects.create(user=add_user, tel=tel, type=type,
                                address=address, year=year, major=major, icon=icon)
-        return render(request, "account/index.html")
+        return redirect("account:index")
     return render(request, "account/register.html")
 
 
-def profile(request):
+def profile(request, username):
+    if request.method == "POST":
+        email = request.POST["email"]
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
+
+        tel = request.POST["tel"]
+        type = request.POST["type"]
+        address = request.POST["address"]
+        year = request.POST["year"]
+        major = request.POST["major"]
+
+        icon = "12312321"
+
+        myuser=Account.objects.get(username=username)
+        myuser.user.first_name=first_name 
+        myuser.user.last_name=last_name
+        myuser.user.email=email
+        myuser.tel=tel
+        myuser.type=type
+        myuser.address=address
+        myuser.year=year
+        myuser.major=major
+        myuser.icon=icon
+        myuser.save()
+        messages.success(request, "Your account has been updated successfully")
+        return redirect('account:profile')
     return render(request, "account/profile.html")
+
+
+def observe(request):
+    student = Account.objects.all().filter(type="Student")
+    return render(request, "account/observe.html", {
+        "students": student,
+    })

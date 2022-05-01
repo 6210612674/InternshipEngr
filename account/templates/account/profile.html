@@ -5,11 +5,17 @@
 <html>
 <head>
     <title>โปรไฟล์</title>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}" >
 </head>
 <body>
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById("output");
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+
     <div class="all">
         <!-- <div class="head"><p >โปรไฟล์</p></div>
         <div class="container">
@@ -26,13 +32,16 @@
                     <!-- Profile picture card-->
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">รูปโปรไฟล์</div>
-                        <div class="card-body text-center">
+                        <div class="card-body text-center pic">
                             <!-- Profile picture image-->
-                            <img class="img-account-profile rounded-circle mb-2" src="https://capenetworks.com/static/images/testimonials/user-icon.svg" alt="">
+                            <img class="img-account-profile rounded-circle mb-2" src="https://capenetworks.com/static/images/testimonials/user-icon.svg" id="output" alt="">
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4"></div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Upload new image</button>
+                            <div class="button-update-pic">
+                                <input id="file" type="file" onchange="loadFile(event)"/>
+                                <button class="btn btn-primary" type="button">Upload new image</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,55 +51,48 @@
                         <div class="card-header">ประวัติ</div>
                         <div class="card-body">
                             <form>
-                                
-                                <!-- ************ if user is company ************** -->
+                                {% if request.user.account.type == "Student" %}
+                                <!-- Form Group (id)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputID">รหัสนักศึกษา</label>
+                                    <input class="form-control" id="inputID" type="number" placeholder="Enter your student ID" value="{{ request.user.account.studentID }}">
+                                </div>
+                                {% endif %}
+
+                                {% if request.user.account.type == "Company" %}
                                 <!-- Form Group (Company name)-->
-                                <!-- <div class="mb-3">
+                                <div class="mb-3">
                                     <label class="small mb-1" for="inputCompanyName">ชื่อบริษัท</label>
-                                    <input class="form-control" id="inputCompanyName" type="company_namr" placeholder="Enter your company name" value="บริษัท สยาม จำกัด">
-                                </div> -->
-                                <!-- ********************************************* -->
+                                    <input class="form-control" id="inputCompanyName" type="text" placeholder="Enter your company name" value="บริษัท สยาม จำกัด">
+                                </div>
+                                {% endif %}
 
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputFirstName">ชื่อ</label>
-                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="{{ request.user.first_name }}">
+                                        <input class="form-control" id="Name" type="text" name="first_name" placeholder="Enter your first name" value="{{ request.user.first_name }}">
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputLastName">นามสกุล</label>
-                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="{{ request.user.last_name }}">
+                                        <input class="form-control" id="Name" type="text" name="last_name" placeholder="Enter your last name" value="{{ request.user.last_name }}">
                                     </div>
                                 </div>
 
-                                <!-- Form Row (Name in Eng)-->
-                                <!-- <div class="row gx-3 mb-3"> -->
-                                    <!-- Form Group (first name)-->
-                                    <!-- <div class="col-md-6">
-                                        <label class="small mb-1" for="inputFirstName">First name</label>
-                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Khayhan">
-                                    </div> -->
-                                    <!-- Form Group (last name)-->
-                                    <!-- <div class="col-md-6">
-                                        <label class="small mb-1" for="inputLastName">Last name</label>
-                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Suksamak">
-                                    </div> -->
-                                <!-- </div> -->
-
-                                <!-- ************ if user is student ************** -->
+                                {% if request.user.account.type == "Student" %}
                                 <!-- Form Row        -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (year)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputYear">ชั้นปีที่</label>
-                                        <input class="form-control" id="inputYear" type="text" placeholder="Enter your year" value="{{ request.user.year }}">
+                                        <input class="form-control" id="year" type="text" name="year" placeholder="Enter your year" value="{{ request.user.account.year }}">
                                     </div>
                                     <!-- Form Group (major)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputMajor">สาขา</label>
-                                        <input class="form-control" id="inputMajor" type="text" placeholder="Enter your major " value="{{ request.user.major }}">
+                                        <input class="form-control" id="major" type="text" name="major" placeholder="Enter your major " value="{{ request.user.account.major }}">
                                     </div>
                                 </div>
 
@@ -99,30 +101,26 @@
                                     <label class="small mb-1" for="inputFaculty">คณะ</label>
                                     <input class="form-control" id="inputFaculty" type="text" placeholder="Enter your faculty" value="วิศวกรรมศาสตร์">
                                 </div>
-                                <!-- ********************************************* -->
-
-                                <!-- Form Group (email address)-->
-                                <div class="mb-3">
-                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="{{ request.user.email }}">
-                                </div>
+                                {% endif %}
+                                
 
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
+                                    <!-- Form Group (email address)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="{{ request.user.email }}">   
+                                    </div>
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">เบอร์โทรศัพท์</label>
-                                        <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="{{ request.user.tel }}">
+                                        <input class="form-control" id="tel" type="tel" name="tel" placeholder="Enter your phone number" value="{{ request.user.account.tel }}">
                                     </div>
-                                    <!-- Form Group (birthday)-->
-                                    <!-- <div class="col-md-6">
-                                        <label class="small mb-1" for="inputBirthday">วัน/เดือน/ปีเกิด</label>
-                                        <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
-                                    </div> -->
                                 </div>
 
                                 <!-- Save changes button-->
-                                <button class="btn btn-primary" type="button">Save changes</button>
+                                <button class="btn btn-primary" type="submit">Save changes</button>
+                                
                             </form>
                         </div>
                     </div>

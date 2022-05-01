@@ -1,4 +1,4 @@
-{% extends "account/layout.html" %} 
+{% extends "account/layout.html" %}
 {% block body %}
 <!DOCTYPE html>
 <html>
@@ -12,103 +12,116 @@
         border-radius: 25px;
         margin-left: 10px;
     }
-    h1,h2,h3{
+
+    h1,
+    h2,
+    h3 {
         font-family: "Athiti", sans-serif;
     }
+
     span {
         font-family: "Athiti", sans-serif;
     }
-    .form-control{
-        width: 520px; 
-        height: 50px;  
+
+    .form-control {
+        width: 520px;
+        height: 50px;
         margin-left: 25px;
     }
-
 </style>
 
 {% if not request.user.is_authenticated %}
-    <div class="div1">
-        <div class="comtainer">
-            <div class="row">
-                <!-- sildeshow -->
-                <div class="col-sm-7">
-                    <div class="w3-display-container" style="margin-left: 20%;">
-                        <img class="mySlides img1" src="/static/images/img1.jpg" >
-                        <img class="mySlides img1" src="/static/images/img4.jpg" >
-                        <img class="mySlides img1" src="/static/images/img5.jpg" >
-                        
-                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                        <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
-                    </div> 
-                </div>
-                <!-- login -->
-                <div class="col-sm-5">
-                    <div class="div2">
-                        <div class="div4">
-                            <i class="fa fa-unlock" style="font-size: 25px; color: white; margin-top: 30px; margin-left: 30px;">
-                                &ensp;<span style="font-size: 30px; color: white; padding-top: 50px;">เข้าสู่ระบบ</span>
-                            </i>
-                            <form action="{% url 'account:login' %}" method="post" id=login style="margin-top: 25px;">
-                                {% csrf_token %}
-                                <input class="form-control" type="text" placeholder="Username" name="username" aria-label="Login"required>
-                                <br>
-                                <input class="form-control" type="password" placeholder="Password" name="password"aria-label="Login" required>
-                                <br>
-                                <div class="d-flex flex-row-reverse">
-                                    <div class="p-2 ">
-                                        <button class="btn button1" style="margin-right: 20px; margin-top: 5px;" type="submit"><p style="font-size: 16px; margin-top: 2px;">เข้าสู่ระบบ</p></button>
-                                    </div>
-                                    <div class="p-2 " style="margin-top: 10px;">
-                                        <a href="{% url 'account:register_page' %}">
-                                            <u class="p3">ลงทะเบียน</u>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div style="margin-top: -43px; margin-left: 30px;">
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                            <p style="color: white;" class="p3">{{ message }} !</p>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-{% endif %}
-    
-{% if request.user.is_authenticated %}
-<div class="div3">
+<div class="div1">
     <div class="comtainer">
         <div class="row">
             <!-- sildeshow -->
             <div class="col-sm-7">
-                <div class="w3-display-container" style="margin-left:57%;">
-                    <img class="mySlides img1" src="/static/images/img1.jpg" >
-                    <img class="mySlides img1" src="/static/images/img4.jpg" >
-                    <img class="mySlides img1" src="/static/images/img5.jpg" >
-                    
+                <div class="w3-display-container" style="margin-left: 20%;">
+                    <img class="mySlides img1" src="/static/images/img1.jpg">
+                    <img class="mySlides img1" src="/static/images/img4.jpg">
+                    <img class="mySlides img1" src="/static/images/img5.jpg">
+
                     <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                    <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;" onclick="plusDivs(1)">&#10095;</button>
-                </div> 
+                    <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;"
+                        onclick="plusDivs(1)">&#10095;</button>
+                </div>
+            </div>
+            <!-- login -->
+            <div class="col-sm-5">
+                <div class="div2">
+                    <div class="div4">
+                        <i class="fa fa-unlock"
+                            style="font-size: 25px; color: white; margin-top: 30px; margin-left: 30px;">
+                            &ensp;<span style="font-size: 30px; color: white; padding-top: 50px;">เข้าสู่ระบบ</span>
+                        </i>
+                        <form action="{% url 'account:login' %}" method="post" id=login style="margin-top: 25px;">
+                            {% csrf_token %}
+                            <input class="form-control" type="text" placeholder="Username" name="username"
+                                aria-label="Login" required>
+                            <br>
+                            <input class="form-control" type="password" placeholder="Password" name="password"
+                                aria-label="Login" required>
+                            <br>
+                            <div class="d-flex flex-row-reverse">
+                                <div class="p-2 ">
+                                    <button class="btn button1" style="margin-right: 20px; margin-top: 5px;"
+                                        type="submit">
+                                        <p style="font-size: 16px; margin-top: 2px;">เข้าสู่ระบบ</p>
+                                    </button>
+                                </div>
+                                <div class="p-2 " style="margin-top: 10px;">
+                                    <a href="{% url 'account:register_page' %}">
+                                        <u class="p3">ลงทะเบียน</u>
+                                    </a>
+                                </div>
+                            </div>
+                            <div style="margin-top: -43px; margin-left: 30px;">
+                                {% if messages %}
+                                {% for message in messages %}
+                                <p style="color: white;" class="p3">{{ message }} !</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-{% endif %}
+    {% endif %}
 
-<div class="div5" style=" background-color: #ffffffec;">
-        <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวสาร</b></h1>
-        <div class="line3"></div>
-        <a href="{% url 'thread:thread_page' %}" style="margin-left: 125px; font-size: 16px;"><u>ข่าวสารทั้งหมด</u></a>
-        
-        <div class="grid-container">
-            {% for x in thread_list%}
+    {% if request.user.is_authenticated %}
+    <div class="div3">
+        <div class="comtainer">
+            <div class="row">
+                <!-- sildeshow -->
+                <div class="col-sm-7">
+                    <div class="w3-display-container" style="margin-left:57%;">
+                        <img class="mySlides img1" src="/static/images/img1.jpg">
+                        <img class="mySlides img1" src="/static/images/img4.jpg">
+                        <img class="mySlides img1" src="/static/images/img5.jpg">
+
+                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                        <button class="w3-button w3-black " style="margin-left: 560px; margin-top: -350px;"
+                            onclick="plusDivs(1)">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="div5" style=" background-color: #ffffffec;">
+            <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวสาร</b></h1>
+            <div class="line3"></div>
+            <a href="{% url 'thread:thread_page' %}"
+                style="margin-left: 125px; font-size: 16px;"><u>ข่าวสารทั้งหมด</u></a>
+
+            <div class="grid-container">
+                {% for x in thread_list%}
                 <a href="{% url 'thread:thread' x.id %}">
                     <div>
                         <img class="img4 responsive" src="{{x.icon}}">
-                        <div class="div6 responsive" >
+                        <div class="div6 responsive">
                             <h2>
                                 {{x.header}}
                             </h2>
@@ -118,71 +131,72 @@
                         </div>
                     </div>
                 </a>
-            {% endfor %}
-        </div>
-
-        <div class="line2"></div>
-
-        <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวประชาสัมพันธ์</b></h1>
-    
-        <div class="line3"></div>
-        <a href="{% url 'thread:annoucement_page'%}" style="padding-top: 100px;margin-left: 125px; font-size: 16px;"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></a>
-        <br>
-
-        <div class="grid-container">
-            {% for x in annoucement_list%}
-            <a href="{% url 'thread:thread' x.id %}">
-            <div>
-                <img class="img4 responsive" src="{{x.icon}}">
-                <div class="div6 responsive" >
-                    <h2>
-                        {{x.header}}
-                    </h2>
-                    <p class="disable-links">
-                        {{x.desc}}
-                    </p>
-                </div>
+                {% endfor %}
             </div>
-            </a>
-            {% endfor %}
+
+            <div class="line2"></div>
+
+            <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวประชาสัมพันธ์</b></h1>
+
+            <div class="line3"></div>
+            <a href="{% url 'thread:annoucement_page'%}"
+                style="padding-top: 100px;margin-left: 125px; font-size: 16px;"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></a>
+            <br>
+
+            <div class="grid-container">
+                {% for x in annoucement_list%}
+                <a href="{% url 'thread:thread' x.id %}">
+                    <div>
+                        <img class="img4 responsive" src="{{x.icon}}">
+                        <div class="div6 responsive">
+                            <h2>
+                                {{x.header}}
+                            </h2>
+                            <p class="disable-links">
+                                {{x.desc}}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
         </div>
-</div>
-    
 
-    
-<!-- slideshow -->
-<script>
-    var slideIndex = 1;
-    showDivs(slideIndex);
-    
-    function plusDivs(n) {
-      showDivs(slideIndex += n);
-    }
-    
-    function showDivs(n) {
-      var i;
-      var x = document.getElementsByClassName("mySlides");
-      if (n > x.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = x.length}
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";  
-      }
-      x[slideIndex-1].style.display = "block";  
-    }
-    var myIndex = 0;
-    carousel();
 
-    function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";  
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}    
-        x[myIndex-1].style.display = "block";  
-        setTimeout(carousel, 10000); 
-    }
-</script>
 
-{% endblock %}
+        <!-- slideshow -->
+        <script>
+            var slideIndex = 1;
+            showDivs(slideIndex);
+
+            function plusDivs(n) {
+                showDivs(slideIndex += n);
+            }
+
+            function showDivs(n) {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                if (n > x.length) { slideIndex = 1 }
+                if (n < 1) { slideIndex = x.length }
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                x[slideIndex - 1].style.display = "block";
+            }
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) { myIndex = 1 }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 10000);
+            }
+        </script>
+
+        {% endblock %}

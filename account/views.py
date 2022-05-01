@@ -28,7 +28,26 @@ def index(request):
         if num_thread == 3 and num_annoucement == 4:
             break
 
-    return render(request, "account/index.html", {'annoucement_list': annoucement_list, 'thread_list': thread_list})
+    if request.user.is_authenticated:
+
+        account = Account.objects.get(user=request.user)
+        noti_count = 0
+
+        data_notread = []
+        data_read = []
+
+        for o in account.receive_box.all():
+            if o not in account.read_box.all():
+                noti_count += 1
+                data_notread.append(o)
+            else:
+                data_read.append(o)
+
+    return render(request, "account/index.html", {'annoucement_list': annoucement_list, 'thread_list': thread_list, 'noti_count': noti_count, 'data_notread': data_notread, 'data_read': data_read})
+
+
+def read_notification(request):
+    pass
 
 
 def register_page(request):

@@ -1,18 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}" >
-    <script src="{% static 'account/css/styles.js' %}"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@500&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+<link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+<script src="{% static 'account/css/styles.js' %}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Athiti:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <style>
     .container {
         width: 50px;
@@ -25,6 +26,7 @@
         position: relative;
         display: inline-block;
     }
+
     .notification .badge {
         position: absolute;
         width: 20px;
@@ -35,20 +37,21 @@
         background-color: rgb(235, 74, 74);
         color: white;
     }
+
     .footer {
-        position:fixed;
+        position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
     }
 </style>
 <script>
-    function logout()
-    {
+    function logout() {
         var answer = window.confirm("ยืนยันการออกจากระบบ");
         return answer;
     }
 </script>
+
 <body style="background-image: url('/static/images/img5.jpg'); ">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
@@ -61,14 +64,14 @@
                     {% csrf_token %}
                     <div class="container">
                         <button class="btn icon" type="submit">
-                            <i class="search fa fa-search" ></i>
+                            <i class="search fa fa-search"></i>
                         </button>
-                
+
                         <div class="input">
                             <input type="search" name="search" placeholder="Search" aria-label="Search">
-                            
+
                             <i class="clear fa fa-times"></i>
-                            
+
                         </div>
                     </div>
                 </form>
@@ -78,9 +81,9 @@
                 <p class="p1">ติดต่อ</p>
             </a>
             {% if request.user.is_authenticated %}
-                <div class="p-2 ">
-                    <p class="p1">สวัสดี, {{request.user.username}}</p>
-                </div>
+            <div class="p-2 ">
+                <p class="p1">สวัสดี, {{request.user.username}}</p>
+            </div>
             {% endif %}
         </div>
     </nav>
@@ -88,63 +91,95 @@
     <!-- menu bar -->
     <section class="menubar">
         <div id="nav" class="d-flex flex-row-reverse menubar shadow" style="padding-right: 20px;">
-                {% if request.user.is_authenticated %}
-                    <div class="p-2 ">
-                        <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
-                    </div>
-                    <div class="p-2 notification" style="cursor: pointer;" onclick="openNoti()">
-                        <span style="font-size: 20px;" >&#128276;</span>
-                        <span class="badge">3</span>
-                    </div>
-                     
-                {% endif %}
-                <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
-                    <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
-                </a>
-                <a class="p-2 " href="{% url 'thread:thread_page' %}">
-                    <p class="p2">&#128204; ข่าวสาร</p>
-                </a>
-                <a class="p-2 " href="{% url 'account:index' %}">
-                    <p class="p2">&#127969; หน้าแรก</p>
-                </a>
+            {% if request.user.is_authenticated %}
+            <div class="p-2 ">
+                <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
             </div>
-        </nav>
-    </div>
-    <script>
-        let clear = document.querySelector(".clear");
+            <div class="p-2 notification" style="cursor: pointer;" onclick="openNoti()">
+                <span style="font-size: 20px;">&#128276;</span>
+                <span class="badge">{{ noti_count }}</span>
+            </div>
 
-        clear.onclick = function(){
-            document.getElementById("search").value = "";
-        }
-    </script>
-    <!-- side bar menu -->
-    <div id="mySidenav" class="sidenav ">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="{% url 'account:profile' %}"><p>โปรไฟล์</p></a>
-        <div class="line"></div>
-        <a href="#"><p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p></a>
-        <div class="line"></div>
-        <a href="#"><p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p></a>
-        <div class="line"></div>
-        <a href="#"><p>ติดตามนักศึกษา</p></a>
-        <div class="line"></div>
-        <a href="{% url 'form:index' %}"><p>จัดการฟอร์ม</p></a>
-        <div class="line"></div>
-        <a href="{% url 'thread:create_thread' %}"><p>สร้างกระทู้</p></a>
-        <div class="line"></div>
-        <a href="#"><p>ตรวจสอบกระทู้</p></a>
-        <div class="line"></div>
-        <a href="{% url 'account:logout' %}" onclick="return logout();"><p>ออกจากระบบ</p></a>
-        <div class="line"></div>
-    </div>
-    <!-- Notification -->
-    <div id="myNoti" class="sidenav1">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNoti()">&times;</a>
-        <a href="#"><p>โปรไฟล์</p></a>
-        <div class="line"></div>
-    </div>
-    
-    {% block body %}
-    {% endblock %}
+            {% endif %}
+            <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
+                <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
+            </a>
+            <a class="p-2 " href="{% url 'thread:thread_page' %}">
+                <p class="p2">&#128204; ข่าวสาร</p>
+            </a>
+            <a class="p-2 " href="{% url 'account:index' %}">
+                <p class="p2">&#127969; หน้าแรก</p>
+            </a>
+        </div>
+        </nav>
+        </div>
+        <script>
+            let clear = document.querySelector(".clear");
+
+            clear.onclick = function () {
+                document.getElementById("search").value = "";
+            }
+        </script>
+        <!-- side bar menu -->
+        <div id="mySidenav" class="sidenav ">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{% url 'account:profile' %}">
+                <p>โปรไฟล์</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ติดตามนักศึกษา</p>
+            </a>
+            <div class="line"></div>
+            <a href="{% url 'form:index' %}">
+                <p>จัดการฟอร์ม</p>
+            </a>
+            <div class="line"></div>
+            <a href="{% url 'thread:create_thread' %}">
+                <p>สร้างกระทู้</p>
+            </a>
+            <div class="line"></div>
+            <a href="#">
+                <p>ตรวจสอบกระทู้</p>
+            </a>
+            <div class="line"></div>
+            <a href="{% url 'account:logout' %}" onclick="return logout();">
+                <p>ออกจากระบบ</p>
+            </a>
+            <div class="line"></div>
+        </div>
+        <!-- Notification -->
+        <div id="myNoti" class="sidenav1">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNoti()">&times;</a>
+            {% for noti in data_notread%}
+            <!-- Notification ยังไม่อ่าน -->
+            <a href="{% url 'form:response_form' trans_id=noti.id %}">
+                <p>Receive a file from {{noti.sender}} @ {{noti.date}}</p>
+            </a>
+            <div class="line"></div>
+
+            {% endfor %}
+
+            {% for noti in data_read%}
+            <!-- Notification อ่านแล้ว -->
+            <a href="{% url 'form:response_form' trans_id=noti.id %}">
+                <p>Receive a file from {{noti.sender}} @ {{noti.date}}</p>
+            </a>
+            <div class="line"></div>
+
+            {% endfor %}
+        </div>
+
+        {% block body %}
+        {% endblock %}
 </body>
+
 </html>

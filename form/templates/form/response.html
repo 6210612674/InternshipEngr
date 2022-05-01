@@ -1,0 +1,33 @@
+{% extends "form/layout.html"%}
+{% load tag %}
+{% block body%}
+<title>เอกสารการฝึกงาน {{this_file.sender}}</title>
+
+<head>
+    <style>
+        h1,
+        h2,
+        h3 {
+            font-family: "Athiti", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    {% if done %}
+    <h1>File sent !</h1>
+    {% else %}
+    <p>{{this_file.desc}}</p>
+
+    <a href="{{this_file.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+    <form method="POST" action="{% url 'form:response_form' this_file.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label><b class="p5">file</b></label>
+        <p><input class="form-control me-2" type="file" name="form_file" required multiple></p>
+        <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
+            class="form-control bg-white border-left-0 border-md">
+        <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
+    </form>
+    {% endif %}
+</body>
+{% endblock%}

@@ -1,62 +1,67 @@
 {% extends "form/layout.html"%}
 {% load markdown_tag %}
 {% block body%}
-    <title>{{form.name}}</title>
+<title>{{form.name}}</title>
 
-    <script language="javascript">
-        function confirm_delete_form()
-        {
-            var answer = window.confirm("ยืนยันการลบ");
-            return answer;
-        }
-        
-    </script>
-    <div style="margin-left: 25%; margin-right: 25%; margin-top: 2em;">
-        <!-- update form -->
-        {% if check_update == 1 %}
-        <form method="POST" action="{% url 'form:update_form' form.id %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="container">
-                <input type="submit" value ="ยืนยันการแก้ไข" class="btn button2 p5" style="float: right;"></input>
-                <b class="p8">ชื่อ form :</b>
-                <p class="p2" style="margin-top: 1em; margin-left: -0.05em;">{{ form_update.name }}</p>
-                <br>
-                <b class="p8">desc form :</b>
-                <p class="p2" style="margin-top: 1em; margin-left: -0.05em;">{{ form_update.desc }}</p>
-                <br>
-                <b class="p8">เนื้อหา :</b>
-                <p class="p2">{{ form_update.content }}</p>
-            </div>
-        </form>
-        {{ form_update.media }}
-        <br>
-        <br>
-        <br>
-        <br>
-        {% else %}
+<script language="javascript">
+    function confirm_delete_form() {
+        var answer = window.confirm("ยืนยันการลบ");
+        return answer;
+    }
 
-        <!-- form -->
-        <h1 class="p10"><b>{{form.name}}</b></h1>
-        <span class="p11">by {{ form.author.user }}</span>
-        <span class="p11" style="float: right;">{{form.date}} &#9203;
-            
-        {% if request.user == form.author.user %}
-            <a href ="{% url 'form:delete_form' form.id %}" onclick="return confirm_delete_form()" style="float: right; margin-left: 0.5em; color: black;"><p >&#128680; ลบ</p></a>
-            <a href = "{% url 'form:update_form' form.id %}" style="float: right; margin-left: 0.5em; color: black;"><p>แก้ไข</p></a>
-        {% endif %}
-        </span>
-        <br><br><br><br>
-        <div>
-            <h4>
-                <p>{{form.content | convert_markdown | safe }}</p>
-            </h4>
-            <a href="{% url 'form:download_file' form.id %}" style="float: left; font-size: 23px;">
-                <b>&#128073; <u class="p6">download</u></b>
-            </a>
+</script>
+<div style="margin-left: 25%; margin-right: 25%; margin-top: 2em;">
+    <!-- update form -->
+    {% if check_update == 1 %}
+    <form method="POST" action="{% url 'form:update_form' form.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <input type="submit" value="ยืนยันการแก้ไข" class="btn button2 p5" style="float: right;"></input>
+            <b class="p8">ชื่อ form :</b>
+            <p class="p2" style="margin-top: 1em; margin-left: -0.05em;">{{ form_update.name }}</p>
+            <br>
+            <b class="p8">desc form :</b>
+            <p class="p2" style="margin-top: 1em; margin-left: -0.05em;">{{ form_update.desc }}</p>
+            <br>
+            <b class="p8">เนื้อหา :</b>
+            <p class="p2">{{ form_update.content }}</p>
         </div>
-        <br>
+    </form>
+    {{ form_update.media }}
+    <br>
+    <br>
+    <br>
+    <br>
+    {% else %}
+
+    <!-- form -->
+    <h1 class="p10"><b>{{form.name}}</b></h1>
+    <span class="p11">by {{ form.author.user }}</span>
+    <span class="p11" style="float: right;">{{form.date}} &#9203;
+
+        {% if request.user == form.author.user %}
+        <a href="{% url 'form:delete_form' form.id %}" onclick="return confirm_delete_form()"
+            style="float: right; margin-left: 0.5em; color: black;">
+            <p>&#128680; ลบ</p>
+        </a>
+        <a href="{% url 'form:update_form' form.id %}" style="float: right; margin-left: 0.5em; color: black;">
+            <p>แก้ไข</p>
+        </a>
         {% endif %}
-    </div>
+    </span>
     <br><br><br><br>
+    <div>
+        <h4>
+            <p>{{form.content | convert_markdown | safe }}</p>
+        </h4>
+
+        <a href="{{form.file.url}}" style="float: left; font-size: 23px;">
+            <b>&#128073; <u class="p6">download</u></b>
+        </a>
+    </div>
+    <br>
+    {% endif %}
+</div>
+<br><br><br><br>
 
 {% endblock %}

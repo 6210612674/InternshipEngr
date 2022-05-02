@@ -17,7 +17,7 @@ def index(request):
     annoucement_list = []
     num_thread = 0
     num_annoucement = 0
-    for n in Thread.objects.all():
+    for n in Thread.objects.filter(status=True):
         account = Account.objects.get(user=n.author)
         if account.type == "Professor" and num_thread < 4:
             thread_list.append(n)
@@ -42,8 +42,8 @@ def index(request):
                 data_notread.append(o)
             else:
                 data_read.append(o)
-
-    return render(request, "account/index.html", {'annoucement_list': annoucement_list, 'thread_list': thread_list, 'noti_count': noti_count, 'data_notread': data_notread, 'data_read': data_read})
+        return render(request, "account/index.html", {'annoucement_list': annoucement_list, 'thread_list': thread_list, 'noti_count': noti_count, 'data_notread': data_notread, 'data_read': data_read})
+    return render(request, "account/index.html", {'annoucement_list': annoucement_list, 'thread_list': thread_list})
 
 
 def read_notification(request):

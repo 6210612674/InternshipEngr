@@ -1,0 +1,125 @@
+<script language="javascript">
+    function confirm_delete()
+    {
+        var answer = window.confirm("ยืนยันการลบ");
+        return answer;
+    }
+    function confirm_reset()
+    {
+        var answer = window.confirm("ยืนยันการรีเซ็ต");
+        return answer;
+    }
+</script>
+
+<h2 class="p3"><b>THREAD<b></h2>
+    <br>
+        <div class="container">
+            {% if not thread %}
+                <b class="p4">ยังไม่มี Thread</b>
+            {% else %}
+                {% for th in thread %}
+                    <div class="row">
+                        {% if not th.status%}
+                        <div class="col">
+                            <a href = "{% url 'thread:thread' th.id %}" style="text-decoration: none;"><b class="p4">{{th}}</b></a>
+                            <p style="float: right;">
+                                <b class="p2">STATUS: </b> <b class="p2" style="color: tomato;">Not Showing</b>
+                            </p>
+                            
+                                <br>
+                                <br>
+                                <div style="float: right;">
+                                    <a href="{% url 'thread:change_status_thread' th.id %}"><button type="button"class="btn button5 p2" style="width: 10em; height: 2.5em; margin-top: -0.5em;"><b>Change Status</b></button></a>
+                                    <a href="{% url 'thread:remove_thread' th.id %}" onclick="return confirm_delete();"><button type="button"class="btn button6 p2" style="width: 5.8em; height: 2.5em; margin-top: -0.5em;" onclick="return confirm_delete()"><b>Delete</b></button></a>
+                                </div>   
+                            <div class="figure">
+                                <img class="img-thumbnail scaled" src="{{ th.icon.url }}" style="height: 200px; width: 200px;">
+                            </div>
+                        </div>
+                        <br>
+                        {% else %}
+                        <div class="col">
+                            <a href = "{% url 'thread:thread' th.id %}" style="text-decoration: none;"><b class="p4">{{th}}</b></a>
+                            <p style="float: right;">
+                                <b class="p2">STATUS: </b><b class="p2" style="color: #5cb484;">Showing</b>
+                            </p>
+                        
+                            <br>
+                            <br>
+                            <div style="float: right;">
+                                <a href="{% url 'thread:change_status_thread' th.id %}"><button type="button" class="btn button8 p2" style="width: 10em; height: 2.35em; margin-top: -0.5em;"><b>Change Status</b></button></a>
+                                <a href="{% url 'thread:remove_thread' th.id %}"><button type="button" class="btn button6 p2" style="width: 5.8em; height: 2.5em; margin-top: -0.5em;" onclick="return confirm_delete()"><b>Delete</b></button></a>
+                            </div> 
+                            <div class="figure">
+                                <img class="img-thumbnail scaled" src="{{ th.icon.url }}" style="height: 200px; width: 200px;">
+                            </div>
+                        </div>
+                        <br>
+                        
+                        <br>
+                        {% endif%}
+                    
+                    </div>
+                    <br>
+                    <div class="line"></div>
+                    <br>
+                {% endfor %}
+            {% endif %}
+        </div>
+    
+
+    <h2 class="p3"><b>ANNOUCEMENT<b></h2>
+        <br>
+            <div class="container">
+                {% if not annoucement %}
+                    <b class="p4">ยังไม่มี annoucement</b>
+                {% else %}
+                    {% for an in annoucement %}
+                        <div class="row">
+                            {% if not an.status%}
+                            <div class="col">
+                                <a href = "{% url 'thread:thread' an.id %}" style="text-decoration: none;"><b class="p4">{{an}}</b></a>
+                                <p style="float: right;">
+                                    <b class="p2">STATUS: </b> <b class="p2" style="color: tomato;">Not Showing</b>
+                                </p>
+                                
+                                    <br>
+                                    <br>
+                                    <div style="float: right;">
+                                        <a href="{% url 'thread:change_status_thread' an.id %}"><button type="button"class="btn button5 p2" style="width: 10em; height: 2.5em; margin-top: -0.5em;"><b>Change Status</b></button></a>
+                                        <a href="{% url 'thread:remove_thread' an.id %}" onclick="return confirm_delete();"><button type="button"class="btn button6 p2" style="width: 5.8em; height: 2.5em; margin-top: -0.5em;" onclick="return confirm_delete()"><b>Delete</b></button></a>
+                                    </div>   
+                                <div class="figure">
+                                    <img class="img-thumbnail scaled" src="{{ an.icon.url }}" style="height: 200px; width: 200px;">
+                                </div>
+                            </div>
+                            <br>
+                            {% else %}
+                            <div class="col">
+                                <a href = "{% url 'thread:thread' an.id %}" style="text-decoration: none;"><b class="p4">{{an}}</b></a>
+                                <p style="float: right;">
+                                    <b class="p2">STATUS: </b><b class="p2" style="color: #5cb484;">Showing</b>
+                                </p>
+                            
+                                <br>
+                                <br>
+                                <div style="float: right;">
+                                    <a href="{% url 'thread:change_status_thread' an.id %}"><button type="button" class="btn button8 p2" style="width: 10em; height: 2.35em; margin-top: -0.5em;"><b>Change Status</b></button></a>
+                                    <a href="{% url 'thread:remove_thread' an.id %}"><button type="button" class="btn button6 p2" style="width: 5.8em; height: 2.5em; margin-top: -0.5em;" onclick="return confirm_delete()"><b>Delete</b></button></a>
+                                </div> 
+                                <div class="figure">
+                                    <img class="img-thumbnail scaled" src="{{ an.icon.url }}" style="height: 200px; width: 200px;">
+                                </div>
+                            </div>
+                            <br>
+                            
+                            <br>
+                            {% endif%}
+                        
+                        </div>
+                        <br>
+                        <div class="line"></div>
+                        <br>
+                    {% endfor %}
+                {% endif %}
+            </div>

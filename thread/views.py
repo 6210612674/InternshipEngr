@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template.defaultfilters import title
 from django.urls import reverse
 from django.contrib import messages
+from grpc import Status
 
 from account.models import Account
 from .models import *
@@ -24,14 +25,14 @@ def thread_page(request):
         search = request.POST["search"]
         thread_list = []
         check_search = True
-        for x in Thread.objects.all():
+        for x in Thread.objects.filter(status=True):
             account = Account.objects.get(user=x.author)
             if account.type == "Professor":
                 if x.search(search):
                     thread_list.append(x)
     # use when user didnt search Thread so it will return all Thread
     else:
-        for n in Thread.objects.all():
+        for n in Thread.objects.filter(status=True):
             account = Account.objects.get(user=n.author)
             if account.type == "Professor":
                 thread_list.append(n)
@@ -129,14 +130,14 @@ def annoucement_page(request):
     if request.method == "POST":
         search = request.POST["search"]
         check_search = True
-        for x in Thread.objects.all():
+        for x in Thread.objects.filter(status=True):
             account = Account.objects.get(user=x.author)
             if account.type == "Company":
                 if x.search(search):
                     annoucement_list.append(x)
     # use when user didnt search Thread so it will return all Annoucement
     else:
-        for n in Thread.objects.all():
+        for n in Thread.objects.filter(status=True):
             account = Account.objects.get(user=n.author)
             if account.type == "Company":
                 annoucement_list.append(n)
@@ -148,3 +149,59 @@ def annoucement(request, annoucement_id):
     return render(request, "thread/annoucement.html", {
         "annoucement": this_annoucement,
     })
+
+
+def admin(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login First to proceed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    if not request.user.is_superuser:
+        messages.warning(request, "Permission needed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    annoucement = []
+    thread = []
+    for x in Thread.objects.all().order_by('-date'):
+        account = Account.objects.get(user=x.author)
+        if account.type == "Company":
+            annoucement.append(x)
+        if account.type == "Professor":
+            thread.append(x)
+
+    return render(request, "thread/admin.html", {
+        "thread": thread,
+        "annoucement": annoucement,
+    })
+
+
+def remove_thread(request, thread_id):
+
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login First to proceed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    if not request.user.is_superuser:
+        messages.warning(request, "Permission needed")
+        return HttpResponseRedirect(reverse("account:index"))
+    Thread.objects.get(id=thread_id).icon.delete(save=True)
+    Thread.objects.get(id=thread_id).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def change_status_thread(request, thread_id):
+
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login First to proceed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    if not request.user.is_superuser:
+        messages.warning(request, "Permission needed")
+        return HttpResponseRedirect(reverse("account:index"))
+
+    this_dorm = get_object_or_404(Thread, id=thread_id)
+
+    this_dorm.status = not(this_dorm.status)
+
+    this_dorm.save()
+    return HttpResponseRedirect(reverse("thread:admin"))

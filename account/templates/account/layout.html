@@ -95,9 +95,13 @@
             <div class="p-2 ">
                 <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
             </div>
-            <div class="p-2 notification" style="cursor: pointer;" onclick="openNoti()">
+            <div class="p-2 notification" style="cursor: pointer;" onclick="openNoti()" >
                 <span style="font-size: 20px;">&#128276;</span>
+
+            {% if noti_count != 0 %}
                 <span class="badge">{{ noti_count }}</span>
+            {% endif %}
+
             </div>
 
             {% endif %}
@@ -147,7 +151,7 @@
                 <p>สร้างกระทู้</p>
             </a>
             <div class="line"></div>
-            <a href="#">
+            <a href="{% url 'thread:admin' %}">
                 <p>ตรวจสอบกระทู้</p>
             </a>
             <div class="line"></div>
@@ -158,11 +162,17 @@
         </div>
         <!-- Notification -->
         <div id="myNoti" class="sidenav1">
+            {% if noti_count == 0%}
+          
+                <h5 style="color: white; text-align: center; padding-top: 50px; padding: 10px; margin-top: 50px;">- ยังไม่มีการแจ้งเตือน - <div class="div7"></div></h5>
+                <div class="line"></div>
+            {% endif %}
+
             <a href="javascript:void(0)" class="closebtn" onclick="closeNoti()">&times;</a>
             {% for noti in data_notread%}
             <!-- Notification ยังไม่อ่าน -->
             <a href="{% url 'form:response_form' trans_id=noti.id %}">
-                <p>Receive a file from {{noti.sender}} @ {{noti.date}}</p>
+                <p>Receive a file from {{noti.sender}} @ {{noti.date}} <div class="div7"></div></p>
             </a>
             <div class="line"></div>
 

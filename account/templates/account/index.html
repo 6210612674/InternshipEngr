@@ -15,7 +15,9 @@
 
     h1,
     h2,
-    h3 {
+    h3,
+    h4,
+    h5 {
         font-family: "Athiti", sans-serif;
     }
 
@@ -113,53 +115,62 @@
         <div class="div5" style=" background-color: #ffffffec;">
             <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวสาร</b></h1>
             <div class="line3"></div>
-            <a href="{% url 'thread:thread_page' %}"
-                style="margin-left: 125px; font-size: 16px;"><u>ข่าวสารทั้งหมด</u></a>
+            
+            {% if not thread_list %}
+            <h3 style="margin-left: 125px; margin-top: 50px; color: #58585A;">ยังไม่มีการเพิ่มข่าวสาร</h3>
 
-            <div class="grid-container">
-                {% for x in thread_list%}
-                <a href="{% url 'thread:thread' x.id %}">
-                    <div>
-                        <img class="img4 responsive" src="{{x.icon}}">
-                        <div class="div6 responsive">
-                            <h2>
-                                {{x.header}}
-                            </h2>
-                            <p class="disable-links">
-                                {{x.desc}}
-                            </p>
+            {% else %}
+                <a href="{% url 'thread:thread_page' %}" style="margin-left: 125px; font-size: 16px;" class="p4"><u>ข่าวสารทั้งหมด</u></a>
+                <div class="grid-container">
+                    {% for x in thread_list%}
+                    <a href="{% url 'thread:thread' x.id %}">
+                        <div class="p4">
+                            <img class="img4 responsive" src="{{x.icon}}">
+                            <div class="div6 responsive">
+                                <h2>
+                                    {{x.header}}
+                                </h2>
+                                <p class="disable-links">
+                                    {{x.desc}}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            
 
             <div class="line2"></div>
 
             <h1 style="margin-left: 125px; margin-top: 50px;"><b>ข่าวประชาสัมพันธ์</b></h1>
-
             <div class="line3"></div>
-            <a href="{% url 'thread:annoucement_page'%}"
-                style="padding-top: 100px;margin-left: 125px; font-size: 16px;"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></a>
-            <br>
 
-            <div class="grid-container">
-                {% for x in annoucement_list%}
-                <a href="{% url 'thread:thread' x.id %}">
-                    <div>
-                        <img class="img4 responsive" src="{{x.icon}}">
-                        <div class="div6 responsive">
-                            <h2>
-                                {{x.header}}
-                            </h2>
-                            <p class="disable-links">
-                                {{x.desc}}
-                            </p>
+            {% if not annoucement_list %}
+            <h3 style="margin-left: 125px; margin-top: 50px; color: #58585A; padding-bottom: 60px;">ยังไม่มีการเพิ่มข่าวประชาสัมพันธ์</h3>
+            {% else %}
+                <a href="{% url 'thread:annoucement_page' %}" style="margin-left: 125px; font-size: 16px;"
+                class="p4"><u>ข่าวประชาสัมพันธ์ทั้งหมด</u></a>
+                
+                <div class="grid-container">
+                    {% for x in annoucement_list%}
+                    <a dhref="{% url 'thread:thread' x.id %}">
+                        <div>
+                            <img class="img4 responsive" src="{{x.icon}}">
+                            <div class="div6 responsive p4">
+                                <h2>
+                                    {{x.header}}
+                                </h2>
+                                <p>
+                                    {{x.desc}}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
 

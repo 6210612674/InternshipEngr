@@ -61,7 +61,7 @@ function closeNav() {
 //Open Notification 
 function openNoti() {
   document.getElementById("myNoti").style.width = "250px";
-  document.getElementById("myNoti").style.height = "200px";
+  document.getElementById("myNoti").style.height = "400px";
   document.getElementById("main").style.marginLeft = "250px";
   document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
 }

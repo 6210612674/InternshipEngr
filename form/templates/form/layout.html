@@ -84,12 +84,9 @@
     <section class="menubar">
         <div id="nav" class="d-flex flex-row-reverse menubar shadow" style="padding-right: 20px;">
             {% if request.user.is_authenticated %}
-            <a class="p-2 " href="#">
+            <div class="p-2 ">
                 <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
-            </a>
-            <a class="p-2 " href="#">
-                <p class="p2">&#128276;</p>
-            </a>
+            </div>
             {% endif %}
             <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
                 <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
@@ -107,7 +104,7 @@
         <!-- side bar menu -->
         <div id="mySidenav" class="sidenav ">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">
+            <a href="{% url 'account:profile' %}">
                 <p>โปรไฟล์</p>
             </a>
             <div class="line"></div>
@@ -131,11 +128,11 @@
                 <p>สร้างกระทู้</p>
             </a>
             <div class="line"></div>
-            <a href="#">
+            <a href="{% url 'thread:admin' %}">
                 <p>ตรวจสอบกระทู้</p>
             </a>
             <div class="line"></div>
-            <a href="{% url 'account:logout' %}" onclick="return logout()">
+            <a href="{% url 'account:logout' %}" onclick="return logout();">
                 <p>ออกจากระบบ</p>
             </a>
             <div class="line"></div>

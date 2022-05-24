@@ -20,18 +20,26 @@
     <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
     <meta charset=utf-8 />
 <style>
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Athiti", sans-serif;
+    }
+
     .button1 {
         background-color: #DD4A48;
         width: 80px;
+        height: 40px;
         color: white;
-        border: 2px solid #DD4A48;
+        border: none;
         border-radius: 10px;
     }
 
     .button1:hover {
         background-color: #724141;
         color: white;
-        border: 2px solid #724141;
     }
     .button2 {
         background-color: #DD4A48;
@@ -85,12 +93,9 @@
     <section class="menubar">
         <div id="nav" class="d-flex flex-row-reverse menubar shadow" style="padding-right: 20px;">
                 {% if request.user.is_authenticated %}
-                    <a class="p-2 " href="#">
+                    <div class="p-2 ">
                         <p class="p2" style="cursor: pointer;" onclick="openNav()">&#9776;</p>
-                    </a>
-                    <a class="p-2 " href="#">
-                        <p class="p2">&#128276;</p>
-                    </a>
+                    </div>
                 {% endif %}
                 <a class="p-2 " href="{% url 'thread:annoucement_page' %}">
                     <p class="p2">&#128226; ข่าวประชาสัมพันธ์</p>
@@ -108,25 +113,42 @@
     <!-- side bar menu -->
     <div id="mySidenav" class="sidenav ">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#"><p>โปรไฟล์</p></a>
+        <a href="{% url 'account:profile' %}">
+            <p>โปรไฟล์</p>
+        </a>
         <div class="line"></div>
-        <a href="#"><p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p></a>
+        <a href="#">
+            <p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p>
+        </a>
         <div class="line"></div>
-        <a href="#"><p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p></a>
+        <a href="#">
+            <p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p>
+        </a>
         <div class="line"></div>
-        <a href="#"><p>ติดตามนักศึกษา</p></a>
+        <a href="#">
+            <p>ติดตามนักศึกษา</p>
+        </a>
         <div class="line"></div>
-        <a href="{% url 'form:index' %}"><p>จัดการฟอร์ม</p></a>
+        <a href="{% url 'form:index' %}">
+            <p>จัดการฟอร์ม</p>
+        </a>
         <div class="line"></div>
-        <a href="{% url 'thread:create_thread' %}"><p>สร้างกระทู้</p></a>
+        <a href="{% url 'thread:create_thread' %}">
+            <p>สร้างกระทู้</p>
+        </a>
         <div class="line"></div>
-        <a href="#"><p>ตรวจสอบกระทู้</p></a>
+        <a href="{% url 'thread:admin' %}">
+            <p>ตรวจสอบกระทู้</p>
+        </a>
         <div class="line"></div>
-        <a href="{% url 'account:logout' %}" onclick="return logout()"><p>ออกจากระบบ</p></a>
+        <a href="{% url 'account:logout' %}" onclick="return logout();">
+            <p>ออกจากระบบ</p>
+        </a>
         <div class="line"></div>
     </div>
     <br>
-    
+
+
     {% block body %}
     {% endblock %}
 

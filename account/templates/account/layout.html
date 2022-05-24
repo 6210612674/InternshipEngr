@@ -121,11 +121,14 @@
             }
         </script>
         <!-- side bar menu -->
+        {% if request.user.is_authenticated %}
         <div id="mySidenav" class="sidenav ">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="{% url 'account:profile' %}">
+            <a href="{% url 'account:profile' request.user.username %}">
                 <p>โปรไฟล์</p>
             </a>
+
+            {% if request.user.account.type == "Professor" or request.user.account.type == "Student"%}
             <div class="line"></div>
             <a href="#">
                 <p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p>
@@ -134,14 +137,19 @@
             <a href="#">
                 <p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p>
             </a>
+            {% endif %}
+
+            {% if request.user.account.type == "Professor" %}
             <div class="line"></div>
-            <a href="#">
+            <a href="{% url 'account:observe' %}">
                 <p>ติดตามนักศึกษา</p>
             </a>
             <div class="line"></div>
             <a href="{% url 'form:index' %}">
                 <p>จัดการฟอร์ม</p>
             </a>
+            {% endif %}
+
             <div class="line"></div>
             <a href="{% url 'thread:create_thread' %}">
                 <p>สร้างกระทู้</p>
@@ -156,6 +164,7 @@
             </a>
             <div class="line"></div>
         </div>
+        {% endif %}
         <!-- Notification -->
         <div id="myNoti" class="sidenav1">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNoti()">&times;</a>

@@ -9,5 +9,6 @@ urlpatterns = [path("", views.index, name="index"),
                path("logout", views.logout, name="logout"),
                path("register_page", views.register_page, name="register_page"),
                path("login_page", views.login_page, name="login_page"),
-               path("profile", views.profile, name="profile"),
+               path("profile/<str:username>", views.profile, name="profile"),
+               path("observe", views.observe, name="observe"),
                ]

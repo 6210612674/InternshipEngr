@@ -1,0 +1,57 @@
+{% extends "account/layout.html" %}
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ติดตามนักศึกษา</title>
+    <link rel="stylesheet" href="{% static 'account/css/observe.css' %}">
+</head>
+<body>
+
+<h1>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspรายชื่อนักศึกษา</h1>
+
+<table>
+  <!-- <caption>รายชื่อนักศึกษา</caption> -->
+  <thead>
+    <tr>
+        <td>รหัสนักศึกษา</td>
+        <td>ชื่อ-นามสกุล</td>
+        <td>สาขา</td>
+        <td>สถานะ</td>
+        <td>บริษัท</td>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for student in students %}
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.user.first_name }} {{ student.user.last_name }}</td>
+            <td>{{ student.major }}</td>
+            <td>กำลังดำเนินการ</td>
+            <td>บรรลัยการช่าง จำกัด</td>
+        </tr>
+    {% endfor %}
+    
+    <!-- <tr>
+        <td>6210611234</td>
+        <td>เทวิญทัญ ชีวินโชต9999999999999999999</td>
+        <td>คอมพิวเต๋อvvvv</td>
+        <td>กำลังดำเนินการ</td>
+        <td>บรรลัยการช่าง จำกัด</td>
+    </tr> -->
+
+    <!-- <tr>
+        <td>6210611234</td>
+        <td>เทวิญทัญ ชีวินโชต</td>
+        <td>คอมพิวเต๋อ</td>
+        <td>กำลังดำเนินการ</td>
+        <td>บรรลัยการช่าง จำกัด</td>
+    </tr> -->
+  </tbody>
+</table>
+
+</body>
+</html>
+{% endblock %}

@@ -106,14 +106,14 @@ body {
 }
 
 .file-upload-btn {
-  width: 50%;
+  width: 70%;
   margin: 0;
   color: #fff;
-  background: #1FB264;
+  background: #1b0202;
   border: none;
   padding: 10px;
   border-radius: 4px;
-  border-bottom: 4px solid #15824B;
+  border-bottom: 4px solid #821515;
   transition: all .2s ease;
   outline: none;
   text-transform: uppercase;
@@ -121,7 +121,7 @@ body {
 }
 
 .file-upload-btn:hover {
-  background: #1AA059;
+  background: #580303;
   color: #ffffff;
   transition: all .2s ease;
   cursor: pointer;
@@ -134,7 +134,7 @@ body {
 
 .file-upload-content {
   display: none;
-  text-align: center;
+  width: 50%;
 }
 
 .file-upload-input {
@@ -152,7 +152,7 @@ body {
   margin-top: 20px;
   border: 4px dashed #7a2020;
   width: 50%;
-  position: relative;
+  
 }
 
 .image-dropping,
@@ -173,20 +173,20 @@ body {
 .drag-text h3 {
   font-weight: 100;
   text-transform: uppercase;
-  color: #15824B;
-  padding: 60px 0;
+  color: #1f0c27;
+  padding: 60px 20px;
+  font-weight: bold;
 }
 
 .file-upload-image {
   max-height: 200px;
-  max-width: 100px;
-  margin: auto;
-  padding: 20px;
+  max-width: 300px;
+  align-self: center;
+  padding: 20px 20px;
 }
 
 .remove-image {
   width: 200px;
-  margin: 0;
   color: #fff;
   background: #cd4535;
   border: none;
@@ -206,16 +206,12 @@ body {
   cursor: pointer;
 }
 
-.remove-image:active {
-  border: 0;
-  transition: all .2s ease;
-}
 .test{
-  width: 300px;
+  width: 500px;
   padding: 10px;
   border: 5px solid gray;
   margin: 0;
 }
 .img_wrap{
-  width: 40%;
+  width:100%;
 }

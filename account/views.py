@@ -25,7 +25,7 @@ def index(request):
         if account.type == "Company" and num_annoucement < 4:
             annoucement_list.append(n)
             num_annoucement += 1
-        if num_thread == 3 and num_annoucement == 4:
+        if num_thread == 4 and num_annoucement == 4:
             break
 
     if request.user.is_authenticated:

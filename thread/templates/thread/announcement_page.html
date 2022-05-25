@@ -49,15 +49,16 @@
 
     <div style="margin-left: 12%;margin-right: 12%; margin-top: 3em; margin-bottom: 5em;">
     {% if not annoucement_list %}
-        <b class="p5">ไม่พบข่าวประชาสัมพันธ์</b>
+        <b class="p5">ยังไม่มีการเพิ่มข่าวประชาสัมพันธ์</b>
         {% if not request.user.is_authenticated %}
             <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;" onclick="loginB4Create()"><b class="p6"><u>คลิกที่นี่</u></b></a>
-            <b class="p5">เพื่อสร้างข่าวประชาสัมพันธ์</b>
+            <b class="p5">เพื่อสร้างข่าว</b>
         {% endif %}
-        {% if request.user.type == "Company" %}
+        {% if request.user.account.type == "Company" %}
             <a href="{% url 'thread:create_thread' %}" style="text-decoration: none;"><b class="p6"><u>คลิกที่นี่</u></b></a>
             <b class="p5">เพื่อสร้างข่าวประชาสัมพันธ์</b>
         {% endif %}
+
         {{endfor}}
         <div class="line2"></div>
         <br>

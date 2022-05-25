@@ -68,7 +68,7 @@
         return answer;
     }
 </script>
-<body style="margin-bottom: 60px;">
+<body style="margin-bottom: 60px; background-color: #f7f3eb;">
     <!-- nav bar -->
     <nav class="navbar shadow" style="background-color: #ecdbbad7; height: 50px;">
         <a class="navbar-brand" href="#"></a>
@@ -113,37 +113,48 @@
     <!-- side bar menu -->
     <div id="mySidenav" class="sidenav ">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="{% url 'account:profile' %}">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'account:profile' request.user.username %}">
             <p>โปรไฟล์</p>
         </a>
+        {% endif %}
+        
+        {% if request.user.account.type == "Professor" or request.user.account.type == "Student"%}
         <div class="line"></div>
-        <a href="#">
+        <a href="{% url 'form:internship' %}">
             <p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p>
         </a>
-        <div class="line"></div>
-        <a href="#">
-            <p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p>
-        </a>
-        <div class="line"></div>
-        <a href="#">
+        {% endif %}
+        
+        {% if request.user.account.type == "Professor" %}
+        <a href="{% url 'account:observe' %}">
             <p>ติดตามนักศึกษา</p>
         </a>
         <div class="line"></div>
         <a href="{% url 'form:index' %}">
             <p>จัดการฟอร์ม</p>
         </a>
+        {% endif %}
+        
+        {% if request.user.account.type == "Professor" or request.user.account.type == "Company"%}
         <div class="line"></div>
         <a href="{% url 'thread:create_thread' %}">
             <p>สร้างกระทู้</p>
         </a>
+        {% endif %}
+
+        {% if request.user.is_superuser%}
         <div class="line"></div>
         <a href="{% url 'thread:admin' %}">
             <p>ตรวจสอบกระทู้</p>
         </a>
+        {% endif %}
+
         <div class="line"></div>
         <a href="{% url 'account:logout' %}" onclick="return logout();">
             <p>ออกจากระบบ</p>
         </a>
+        
         <div class="line"></div>
     </div>
     <br>

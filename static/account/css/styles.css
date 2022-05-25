@@ -281,14 +281,14 @@ a {
   width: 310px;
 }
 
-.div7 {
+.span2 {
   background-color: #c0d8c0fa;
   width: 10px;
   height: 10px;
   border-radius: 10px;
   box-shadow: 2px 1px #8b9c8b7e;
-  margin-top: 7px;
-  margin-right: 20px;
+  margin-top: 6px;
+  margin-right: 80px;
   float: right;
 }
 

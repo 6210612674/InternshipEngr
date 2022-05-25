@@ -44,6 +44,12 @@
         bottom: 0;
         width: 100%;
     }
+
+    .p5 {
+        color: #F5EEDC;
+        font-size: 14px;
+        margin-top: -20px ;
+    }
 </style>
 <script>
     function logout() {
@@ -131,15 +137,11 @@
             <a href="{% url 'account:profile' request.user.username %}">
                 <p>โปรไฟล์</p>
             </a>
-
+            
             {% if request.user.account.type == "Professor" or request.user.account.type == "Student"%}
             <div class="line"></div>
             <a href="{% url 'form:internship' %}">
                 <p>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน</p>
-            </a>
-            <div class="line"></div>
-            <a href="#">
-                <p>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน</p>
             </a>
             {% endif %}
 
@@ -154,14 +156,19 @@
             </a>
             {% endif %}
 
+            {% if request.user.account.type == "Professor" or request.user.account.type == "Company"%}
             <div class="line"></div>
             <a href="{% url 'thread:create_thread' %}">
                 <p>สร้างกระทู้</p>
             </a>
+            {% endif%}
+            
+            {% if request.user.is_superuser%}
             <div class="line"></div>
             <a href="{% url 'thread:admin' %}">
                 <p>ตรวจสอบกระทู้</p>
             </a>
+            {% endif %}
             <div class="line"></div>
             <a href="{% url 'account:logout' %}" onclick="return logout();">
                 <p>ออกจากระบบ</p>
@@ -173,7 +180,7 @@
         <div id="myNoti" class="sidenav1">
             {% if noti_count == 0%}
           
-                <h5 style="color: white; text-align: center; padding-top: 50px; padding: 10px; margin-top: 50px;">- ยังไม่มีการแจ้งเตือน - <div class="div7"></div></h5>
+                <h5 style="color: white; text-align: center; padding-top: 50px; padding: 10px; margin-top: 50px;">- ยังไม่มีการแจ้งเตือน - </h5>
                 <div class="line"></div>
             {% endif %}
 
@@ -181,7 +188,8 @@
             {% for noti in data_notread%}
             <!-- Notification ยังไม่อ่าน -->
             <a href="{% url 'form:response_form' trans_id=noti.id %}">
-                <p>Receive a file from {{noti.sender}} @ {{noti.date}} <div class="div7"></div></p>
+                <p>Receive a file from {{noti.sender}}<p> 
+                <p class="p5">@ {{noti.date}} <span class="span2"></span></p>
             </a>
             <div class="line"></div>
 
@@ -190,7 +198,8 @@
             {% for noti in data_read%}
             <!-- Notification อ่านแล้ว -->
             <a href="{% url 'form:response_form' trans_id=noti.id %}">
-                <p>Receive a file from {{noti.sender}} @ {{noti.date}}</p>
+                <p style="color: #CDC8C8;">Receive a file from {{noti.sender}}</p>
+                <p class="p5" style="color: #CDC8C8;">@ {{noti.date}}</p>
             </a>
             <div class="line"></div>
 

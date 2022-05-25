@@ -5,28 +5,39 @@
 <title>เอกสารการฝึกงาน {{step}}</title>
 
 <head>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'form/css/internship.css' %}" >
     <style>
        
-        p, {
+        .button1 {
+        height: 40px;
+        background-color: #d2543a;
+        color: white;
+        border-radius: 10px;
+        margin-left: 10px;
+        font-size: 16px;
+        }
+        p{
             font-family: "Athiti", sans-serif;
         }
+
         h1,
         h2,
         h3 {
-        font-family: "Athiti", sans-serif;
+            font-family: "Athiti", sans-serif;
         }
-        h2
-        {
+
+        h2{
             text-align: left;
+        }
+        input{
+            font-family: "Athiti", sans-serif;
         }
         
     </style>
 </head>
 
 <body>
+    <br>
     <div class= "headtag">
         <h1>ระบบลงทะเบียนแจ้งสถานที่ฝึกงาน &#128394; </h1>
         
@@ -89,48 +100,53 @@
 </div>
 
 
-    <div class="content">
+    <div class="content" style="padding-bottom: 6em; background-color: rgb(252, 252, 252);">
         {% if step == 0 %}
-
+    
             <!--<h2>This is step #{{step}}</h2>-->
-            <h2><img src="/static/images/p_step1.png">ขั้นตอนลำดับที่ 1 ลงทะเบียนขอใบส่งตัว </h2>
-            
-            <a href="{{init_form.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+            <h2 style="margin: 20px;"><img src="/static/images/p_step1.png">ขั้นตอนลำดับที่ 1 ลงทะเบียนขอใบส่งตัว </h2>
+            <br>
+            <a href="{{init_form.file.url}" style="margin-left: 32px;">
+                <b style="font-size: 20px;">&#128073; <u class="p12"> download</u></b>
+            </a>
             <form method="POST" action="{% url 'form:internship' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
-                    class="form-control bg-white border-left-0 border-md">
-                <label><b class="p5">file</b></label>
-                <p><input class="form-control me-2" type="file" name="form_file" required></p>
-                <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
+                    class="form-control" style="width: 95%; height: 40px; margin: 30px; margin-left: 30px; padding-left: 15px;">
+                <label><b class="p5" style="margin-left: 30px;">file</b></label>
+                <p><input class="form-control " type="file" name="form_file" required style="width: 95%; margin: 20px; margin-left: 30px;"></p>
+                <br>
+                <input type="submit" value="ยืนยัน" class="button1" style="margin-left: 30px; width: 100px;"></input>
             </form>
 
         {% elif step == 1 %}
 
             <!-- <h2>This is step #{{step}}</h2>-->
-            <h2 > <img src="/static/images/p_step2.png"> ขั้นตอนลำดับที่ 2 ลงทะเบียนขอใบอนุเคราะห์</h2>
+            <h2 style="margin: 20px;"> <img src="/static/images/p_step2.png"> ขั้นตอนลำดับที่ 2 ลงทะเบียนขอใบอนุเคราะห์</h2>
         {% if not forms %}
-            <h1>Processing your request</h1>
+            <h1 style="margin: 20px;">Processing your request</h1>
         {% else %}
         {% for form in forms %}
-            <p>ขอใบอนุเคราะห์</p>
-            <h2>{{forloop.counter}}</h2>
-            <a href="{{form.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
+            <p style="margin: 30px; font-size: 18px;">{{form.name}}</p>
+            <h2 style="margin: 20px;">{{forloop.counter}}</h2>
+            <a href="{{form.file.url}}"><b class="p12" style="margin-left: 30px; font-size: 20px;">&#128073;<u>download</u></b></a>
+            <div class="line2"></div>
         {% endfor %}
 
             <form method="POST" action="{% url 'form:internship' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
-                    class="form-control bg-white border-left-0 border-md">
-                <label><b class="p5">file</b></label>
-                <p><input class="form-control me-2" type="file" name="form_file" required></p>
-                <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
+                    class="form-control" style="width: 95%; height: 40px; margin: 30px; margin-left: 30px; padding-left: 15px;">
+                <label><b class="p5" style="margin-left: 30px;">file</b></label>
+                <p><input class="form-control" type="file" name="form_file" required style="width: 95%; margin: 20px; margin-left: 30px;"></p>
+                <br>
+                <input type="submit" value="ยืนยัน" class="button1" style="margin-left: 30px; width: 100px;"></input>
             </form>
         {% endif %}
 
         {% elif step == 2 %}
             <!--<h2>ขั้นตอนที่ #{{step}}</h2>-->
-            <h2 > <img src="/static/images/p_step3.png"> ขั้นตอนลำดับที่ 3 อนุมัติใบส่งตัว</h2>
+            <h2 style="margin: 20px;"> <img src="/static/images/p_step3.png"> ขั้นตอนลำดับที่ 3 อนุมัติใบส่งตัว</h2>
           
             
 
@@ -138,9 +154,9 @@
             <h2>Processing your request</h2>
         {% else %}
         {% for form in forms %}
-            <h3>ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน ในขั้นตอนที่ {{forloop.counter}} </h3>
+            <h3 style="margin: 30px;">ผลการแจ้งลงทะเบียนสถานที่ฝึกงาน ในขั้นตอนที่ {{forloop.counter}} </h3>
             
-            <a href="{{form.file.url}}"><b class="p12" style="margin-left: 10px;font-size:20px;"><u> &#128204; download</u></b></a>
+            <a href="{{form.file.url}}"><b class="p12" style="margin-left: 30px;font-size:20px;"> &#128073; <u>download</u></b></a>
         {% endfor %}
 
         {% endif %}

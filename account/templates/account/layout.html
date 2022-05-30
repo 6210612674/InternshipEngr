@@ -66,7 +66,7 @@
 
             <!-- search bar -->
             <div class="p-2 ">
-                <form action="{% url 'thread:thread_page' %}" method="POST" style="left: 0;">
+                <form action="{% url 'thread:search_page' %}" method="POST" style="left: 0;">
                     {% csrf_token %}
                     <div class="container">
                         <button class="btn icon" type="submit">

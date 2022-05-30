@@ -7,6 +7,7 @@ urlpatterns = [path("", views.index, name="index"),
                path("create_thread", views.create_thread, name="create_thread"),
                # Thread Page
                path("thread_page", views.thread_page, name="thread_page"),
+               path("search_page", views.search_page, name="search_page"),
                path("<int:thread_id>", views.thread, name="thread"),
                # Annoucement Page
                path("annoucement_page",

@@ -118,6 +118,7 @@
                 {% endif %}
                 
                 {% if request.user.account.type == "Professor" %}
+                <div class="line"></div>
                 <a href="{% url 'account:observe' %}">
                     <p>ติดตามนักศึกษา</p>
                 </a>
@@ -128,17 +129,17 @@
                 {% endif %}
                 
                 {% if request.user.account.type == "Professor" or request.user.account.type == "Company"%}
-                <div class="line"></div>
-                <a href="{% url 'thread:create_thread' %}">
-                    <p>สร้างกระทู้</p>
-                </a>
+                    <div class="line"></div>
+                    <a href="{% url 'thread:create_thread' %}">
+                        <p>สร้างกระทู้</p>
+                    </a>
                 {% endif %}
 
                 {% if request.user.is_superuser%}
-                <div class="line"></div>
-                <a href="{% url 'thread:admin' %}">
-                    <p>ตรวจสอบกระทู้</p>
-                </a>
+                    <div class="line"></div>
+                    <a href="{% url 'thread:admin' %}">
+                        <p>ตรวจสอบกระทู้</p>
+                    </a>
                 {% endif %}
                 <div class="line"></div>
                 <a href="{% url 'account:logout' %}" onclick="return logout();">

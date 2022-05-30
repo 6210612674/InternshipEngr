@@ -127,6 +127,7 @@
         {% endif %}
         
         {% if request.user.account.type == "Professor" %}
+        <div class="line"></div>
         <a href="{% url 'account:observe' %}">
             <p>ติดตามนักศึกษา</p>
         </a>

@@ -16,6 +16,21 @@ def index(request):
     return render(request, "thread/index.html")
 
 
+def search_page(request):
+    thread_list = []
+    check_search = False
+    search = ""
+    # use when user search Thread
+    if request.method == "POST":
+        search = request.POST["search"]
+        thread_list = []
+        check_search = True
+        for x in Thread.objects.filter(status=True):
+            if x.search(search):
+                thread_list.append(x)
+    return render(request, "thread/search_page.html", {"thread_list": thread_list[::-1], "check_search": check_search, "title": search})
+
+
 def thread_page(request):
     thread_list = []
     check_search = False

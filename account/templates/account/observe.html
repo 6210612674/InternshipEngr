@@ -30,7 +30,13 @@
             <td>{{ student.id }}</td>
             <td>{{ student.user.first_name }} {{ student.user.last_name }}</td>
             <td>{{ student.major }}</td>
-            <td>กำลังดำเนินการ</td>
+            <td>
+              <select name="สถานะ" id="status">
+                <option value="none">ยังไม่ดำเนินการ</option>
+                <option value="ongoing">กำลังดำเนินการ</option>
+                <option value="finish">เสร็จสิ้น</option>
+              </select>
+            </td>
             <td>บรรลัยการช่าง จำกัด</td>
         </tr>
     {% endfor %}

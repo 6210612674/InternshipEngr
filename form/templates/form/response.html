@@ -1,33 +1,67 @@
 {% extends "form/layout.html"%}
+{% load static %}
 {% load tag %}
 {% block body%}
 <title>เอกสารการฝึกงาน {{this_file.sender}}</title>
 
 <head>
     <style>
+        .button1 {
+        height: 40px;
+        background-color: #d2543a;
+        color: white;
+        border-radius: 10px;
+        margin-left: 10px;
+        font-size: 16px;
+        }
+        
         h1,
         h2,
         h3 {
             font-family: "Athiti", sans-serif;
         }
+        .div2{
+            width: 1000px;
+            height: 500px;
+            background-color: rgb(252, 252, 252);
+            border: 5px;
+            border-radius: 25px;
+            margin-left: 25%;
+            margin-top: 5%;
+            box-shadow: 5px 10px 8px #888888;
+        }
     </style>
+    <script>
+        function filesent() {
+            var answer = window.confirm("ไฟล์ได้ถูกส่งเรียบร้อยแล้ว");
+            return answer;
+        }
+    </script>
 </head>
 
 <body>
-    {% if done %}
-    <h1>File sent !</h1>
-    {% else %}
-    <p>{{this_file.desc}}</p>
-
-    <a href="{{this_file.file.url}}"><b class="p12" style="margin-left: 10px;"><u>download</u></b></a>
-    <form method="POST" action="{% url 'form:response_form' this_file.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label><b class="p5">file</b></label>
-        <p><input class="form-control me-2" type="file" name="form_file" required multiple></p>
-        <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
-            class="form-control bg-white border-left-0 border-md">
-        <input type="submit" value="ยืนยัน" class="btn button1 p5"></input>
-    </form>
-    {% endif %}
+    
+        <div class="div2">
+        {% if done %}
+        <!-- ไปหน้ารวม -->
+        <h1 style="text-align: center; padding-top: 20%;">File sent !</h1>
+        {% else %}
+        <p style="margin-left: 35px; font-size: 22px; padding-top: 60px;" > <b>หัวข้อ: {{this_file.desc}}</b></p>
+        <br>
+        <a href="{{this_file.file.url}}"><b class="p12" style="margin-left: 30px; font-size: 18px;" > &#128073; <u>download</u></b></a>
+        <form method="POST" action="{% url 'form:response_form' this_file.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br><br>
+            <label><b class="p5" style="margin-left: 30px; padding-top: 20px;">file</b></label>
+            <p><input class="form-control" type="file" name="form_file" required multiple style="width: 95%; margin: 20px; margin-left: 30px;"></p>
+            <input id="desc" type="text" name="desc" placeholder="หมายเหตุ"
+                class="form-control " style="width: 95%; margin: 20px; margin-left: 30px;">
+                <br>
+            <input type="submit" value="ยืนยัน" class="button1 p5" style="margin-left: 30px; width: 100px; " onclick="return filesent();"></input>
+        </form>
+        {% endif %}
+        </div>
+    
 </body>
+</div>
 {% endblock%}
